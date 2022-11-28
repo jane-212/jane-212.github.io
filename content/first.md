@@ -11,7 +11,7 @@ tags = ["hello"]
 
 该博客用于记录学习和生活
 
-![a dog](https://raw.githubusercontent.com/jane-212/static/main/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20221128215528.jpg)
+![a dog](https://pic.imgdb.cn/item/6384c2fa16f2c2beb10cfb9b.jpg)
 
 - c
 
