@@ -11,6 +11,8 @@ tags = ["hello"]
 
 该博客用于记录学习和生活
 
+![image](https://www.toopic.cn/public/uploads/small/1642749405357164274940535.jpg)
+
 - c
 
 ```c
@@ -55,8 +57,6 @@ func main() {
   fmt.Println("hello world")
 }
 ```
-
-![image](https://www.toopic.cn/public/uploads/small/1642749405357164274940535.jpg)
 
 - python
 
