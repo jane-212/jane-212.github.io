@@ -1,14 +1,12 @@
 +++
-title = "First"
+title = "这是我的第一条博客"
 date = 2022-11-28
 
 [taxonomies]
-categories = ["hello"]
-tags = ["test"]
+categories = ["Hello world"]
+tags = ["hello"]
 +++
 
-this is my first blog1
+这是我的第一条博客
 <!-- more -->
-this is my first blog2
-this is my first blog
-this is my first blog
+该博客用于记录学习和生活
