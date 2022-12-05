@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>Blog - rust</title>
+	<link href="https://jane-212.github.io/tags/rust/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://jane-212.github.io"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2022-12-05T00:00:00+00:00</updated>
+	<id>https://jane-212.github.io/tags/rust/atom.xml</id>
+	<entry xml:lang="en">
+		<title>分析关于imager网站用到的技术</title>
+		<published>2022-12-05T00:00:00+00:00</published>
+		<updated>2022-12-05T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://jane-212.github.io/imager/" type="text/html"/>
+		<id>https://jane-212.github.io/imager/</id>
+		<content type="html">&lt;h1 id=&quot;imagerwang-zhan-zhong-yong-dao-de-ji-zhu&quot;&gt;imager网站中用到的技术&lt;&#x2F;h1&gt;
+&lt;ul&gt;
+&lt;li&gt;后端使用&lt;code&gt;rust&lt;&#x2F;code&gt;语言的&lt;code&gt;actix-web&lt;&#x2F;code&gt;框架&lt;&#x2F;li&gt;
+&lt;li&gt;前端使用&lt;code&gt;vue&lt;&#x2F;code&gt;框架&lt;&#x2F;li&gt;
+&lt;li&gt;数据库使用&lt;code&gt;mysql&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;分发与部署使用&lt;code&gt;docker&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;li&gt;版本控制与代码托管使用&lt;code&gt;git&lt;&#x2F;code&gt;&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;span id=&quot;continue-reading&quot;&gt;&lt;&#x2F;span&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a href=&quot;http:&#x2F;&#x2F;124.222.172.51&quot;&gt;demo site&lt;&#x2F;a&gt;&lt;&#x2F;p&gt;
+&lt;&#x2F;blockquote&gt;
+&lt;h2 id=&quot;actix-webkuang-jia-de-te-dian&quot;&gt;actix-web框架的特点&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;638d5dafb1fccdcd36dd3138.jpg&quot; alt=&quot;actix-web&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;imagerwang-zhan-de-ru-kou-han-shu-wei-main-rszhong-de-mainhan-shu&quot;&gt;imager网站的入口函数为main.rs中的main函数&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; main.rs
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;pub mod &lt;&#x2F;span&gt;&lt;span&gt;service;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;mod &lt;&#x2F;span&gt;&lt;span&gt;utils;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;mod &lt;&#x2F;span&gt;&lt;span&gt;model;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;use &lt;&#x2F;span&gt;&lt;span&gt;actix_web::{
+&lt;&#x2F;span&gt;&lt;span&gt;    web,
+&lt;&#x2F;span&gt;&lt;span&gt;    App,
+&lt;&#x2F;span&gt;&lt;span&gt;    HttpServer,
+&lt;&#x2F;span&gt;&lt;span&gt;    middleware,
+&lt;&#x2F;span&gt;&lt;span&gt;};
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;use &lt;&#x2F;span&gt;&lt;span&gt;imager::service;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;use &lt;&#x2F;span&gt;&lt;span&gt;std::{
+&lt;&#x2F;span&gt;&lt;span&gt;    fs::File,
+&lt;&#x2F;span&gt;&lt;span&gt;    io::Read,
+&lt;&#x2F;span&gt;&lt;span&gt;    result
+&lt;&#x2F;span&gt;&lt;span&gt;};
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;use &lt;&#x2F;span&gt;&lt;span&gt;serde::Deserialize;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;use &lt;&#x2F;span&gt;&lt;span&gt;sqlx::mysql::MySqlPoolOptions;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;use &lt;&#x2F;span&gt;&lt;span&gt;thiserror::Error;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;use &lt;&#x2F;span&gt;&lt;span&gt;log::info;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; used to parse the config.toml file on conf directory
+&lt;&#x2F;span&gt;&lt;span&gt;#[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;derive&lt;&#x2F;span&gt;&lt;span&gt;(Deserialize)]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;struct &lt;&#x2F;span&gt;&lt;span&gt;Config {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;server&lt;&#x2F;span&gt;&lt;span&gt;: Server,
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;database&lt;&#x2F;span&gt;&lt;span&gt;: Database,
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;#[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;derive&lt;&#x2F;span&gt;&lt;span&gt;(Deserialize)]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;struct &lt;&#x2F;span&gt;&lt;span&gt;Server {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;address&lt;&#x2F;span&gt;&lt;span&gt;: String,
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;port&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;u16&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;log_level&lt;&#x2F;span&gt;&lt;span&gt;: String,
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;#[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;derive&lt;&#x2F;span&gt;&lt;span&gt;(Deserialize)]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;struct &lt;&#x2F;span&gt;&lt;span&gt;Database {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;database_url&lt;&#x2F;span&gt;&lt;span&gt;: String,
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;max_connection&lt;&#x2F;span&gt;&lt;span&gt;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;u32&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; my own runtime errors
+&lt;&#x2F;span&gt;&lt;span&gt;#[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;derive&lt;&#x2F;span&gt;&lt;span&gt;(Error, Debug)]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;enum &lt;&#x2F;span&gt;&lt;span&gt;RError {
+&lt;&#x2F;span&gt;&lt;span&gt;    #[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;{0}&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;)]
+&lt;&#x2F;span&gt;&lt;span&gt;    Io(String),
+&lt;&#x2F;span&gt;&lt;span&gt;    #[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;{0}&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;)]
+&lt;&#x2F;span&gt;&lt;span&gt;    Database(String),
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;type &lt;&#x2F;span&gt;&lt;span&gt;RResult&amp;lt;T&amp;gt; = result::Result&amp;lt;T, RError&amp;gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;#[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;actix_web&lt;&#x2F;span&gt;&lt;span&gt;::&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt;]
+&lt;&#x2F;span&gt;&lt;span&gt;async &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;main&lt;&#x2F;span&gt;&lt;span&gt;() -&amp;gt; RResult&amp;lt;()&amp;gt; {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; read config&amp;#39;s path from environment
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; config_path = &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;match &lt;&#x2F;span&gt;&lt;span&gt;std::env::var(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;CONFIG_PATH&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;) {
+&lt;&#x2F;span&gt;&lt;span&gt;        Ok(path) =&amp;gt; path,
+&lt;&#x2F;span&gt;&lt;span&gt;        Err(_) =&amp;gt; &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;conf&#x2F;config.toml&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;to_owned&lt;&#x2F;span&gt;&lt;span&gt;(),
+&lt;&#x2F;span&gt;&lt;span&gt;    };
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; config_path = config_path.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;as_str&lt;&#x2F;span&gt;&lt;span&gt;();
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let mut&lt;&#x2F;span&gt;&lt;span&gt; file =
+&lt;&#x2F;span&gt;&lt;span&gt;        File::open(config_path).&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;map_err&lt;&#x2F;span&gt;&lt;span&gt;(|_| RError::Io(format!(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;can&amp;#39;t find &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;{}&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, config_path)))?;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let mut&lt;&#x2F;span&gt;&lt;span&gt; config = String::new();
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span&gt;_ = file
+&lt;&#x2F;span&gt;&lt;span&gt;        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;read_to_string&lt;&#x2F;span&gt;&lt;span&gt;(&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;mut&lt;&#x2F;span&gt;&lt;span&gt; config)
+&lt;&#x2F;span&gt;&lt;span&gt;        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;map_err&lt;&#x2F;span&gt;&lt;span&gt;(|_| RError::Io(format!(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;can&amp;#39;t read from &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;{}&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, config_path)))?;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; parse config with toml crate
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; config: Config = toml::from_str(&amp;amp;config)
+&lt;&#x2F;span&gt;&lt;span&gt;        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;map_err&lt;&#x2F;span&gt;&lt;span&gt;(|_| RError::Io(format!(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;a mistake found in &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;{}&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, config_path)))?;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; init env_logger crate with the value from config
+&lt;&#x2F;span&gt;&lt;span&gt;    std::env::set_var(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;RUST_LOG&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, config.server.log_level);
+&lt;&#x2F;span&gt;&lt;span&gt;    env_logger::init();
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; pool = MySqlPoolOptions::new()
+&lt;&#x2F;span&gt;&lt;span&gt;        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;max_connections&lt;&#x2F;span&gt;&lt;span&gt;(config.database.max_connection)
+&lt;&#x2F;span&gt;&lt;span&gt;        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;connect&lt;&#x2F;span&gt;&lt;span&gt;(&amp;amp;config.database.database_url)
+&lt;&#x2F;span&gt;&lt;span&gt;        .await
+&lt;&#x2F;span&gt;&lt;span&gt;        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;map_err&lt;&#x2F;span&gt;&lt;span&gt;(|_| RError::Database(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;can&amp;#39;t connect to database&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;into&lt;&#x2F;span&gt;&lt;span&gt;()))?;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    info!(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;server start...&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; bind and start the server
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; the server will listen the signal Ctrl+C
+&lt;&#x2F;span&gt;&lt;span&gt;    HttpServer::new(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;move &lt;&#x2F;span&gt;&lt;span&gt;|| {
+&lt;&#x2F;span&gt;&lt;span&gt;        App::new()
+&lt;&#x2F;span&gt;&lt;span&gt;            .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;app_data&lt;&#x2F;span&gt;&lt;span&gt;(web::Data::new(pool.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;clone&lt;&#x2F;span&gt;&lt;span&gt;()))
+&lt;&#x2F;span&gt;&lt;span&gt;            .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;wrap&lt;&#x2F;span&gt;&lt;span&gt;(middleware::Logger::default())
+&lt;&#x2F;span&gt;&lt;span&gt;            .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;configure&lt;&#x2F;span&gt;&lt;span&gt;(service::route::init_route)
+&lt;&#x2F;span&gt;&lt;span&gt;    })
+&lt;&#x2F;span&gt;&lt;span&gt;    .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;bind&lt;&#x2F;span&gt;&lt;span&gt;((config.server.address, config.server.port))
+&lt;&#x2F;span&gt;&lt;span&gt;    .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;map_err&lt;&#x2F;span&gt;&lt;span&gt;(|_| RError::Io(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;failed to bind the port&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;into&lt;&#x2F;span&gt;&lt;span&gt;()))?
+&lt;&#x2F;span&gt;&lt;span&gt;    .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;run&lt;&#x2F;span&gt;&lt;span&gt;()
+&lt;&#x2F;span&gt;&lt;span&gt;    .await
+&lt;&#x2F;span&gt;&lt;span&gt;    .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;map_err&lt;&#x2F;span&gt;&lt;span&gt;(|_| RError::Io(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;can&amp;#39;t run the server&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;into&lt;&#x2F;span&gt;&lt;span&gt;()))?;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    info!(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;server quit...&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    Ok(())
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;imagershi-yong-tong-yi-de-cuo-wu-lai-chu-li-qing-qiu-zhong-ke-neng-cun-zai-de-cuo-wu&quot;&gt;imager使用统一的错误来处理请求中可能存在的错误&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; utils&#x2F;error.rs
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;use &lt;&#x2F;span&gt;&lt;span&gt;serde_json::json;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;use &lt;&#x2F;span&gt;&lt;span&gt;thiserror::Error;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;use &lt;&#x2F;span&gt;&lt;span&gt;actix_web::{
+&lt;&#x2F;span&gt;&lt;span&gt;    ResponseError,
+&lt;&#x2F;span&gt;&lt;span&gt;    http::StatusCode,
+&lt;&#x2F;span&gt;&lt;span&gt;    HttpResponse
+&lt;&#x2F;span&gt;&lt;span&gt;};
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;use &lt;&#x2F;span&gt;&lt;span&gt;std::result;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;#[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;derive&lt;&#x2F;span&gt;&lt;span&gt;(Error, Debug)]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;pub enum &lt;&#x2F;span&gt;&lt;span&gt;IError {
+&lt;&#x2F;span&gt;&lt;span&gt;    #[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;error&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;database error&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;)]
+&lt;&#x2F;span&gt;&lt;span&gt;    Database,
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;pub type &lt;&#x2F;span&gt;&lt;span&gt;IResult&amp;lt;T&amp;gt; = result::Result&amp;lt;T, IError&amp;gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; implement the trait to make the error could be parse into the response
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;impl &lt;&#x2F;span&gt;&lt;span&gt;ResponseError &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span&gt;IError {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;error_response&lt;&#x2F;span&gt;&lt;span&gt;(&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;self&lt;&#x2F;span&gt;&lt;span&gt;) -&amp;gt; HttpResponse {
+&lt;&#x2F;span&gt;&lt;span&gt;        HttpResponse::BadRequest()
+&lt;&#x2F;span&gt;&lt;span&gt;            .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;json&lt;&#x2F;span&gt;&lt;span&gt;(json!({
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;code&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: -&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;1&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;                &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;msg&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;self&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;to_string&lt;&#x2F;span&gt;&lt;span&gt;(),
+&lt;&#x2F;span&gt;&lt;span&gt;            }))
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;status_code&lt;&#x2F;span&gt;&lt;span&gt;(&amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;self&lt;&#x2F;span&gt;&lt;span&gt;) -&amp;gt; StatusCode {
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;match &lt;&#x2F;span&gt;&lt;span&gt;*&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;self &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;            IError::Database =&amp;gt; StatusCode::&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;INTERNAL_SERVER_ERROR&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;        }
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;fan-hui-tu-pian-shu-ju-de-jie-kou&quot;&gt;返回图片数据的接口&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;rust&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-rust &quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; model&#x2F;image.rs
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;use &lt;&#x2F;span&gt;&lt;span&gt;sqlx::{
+&lt;&#x2F;span&gt;&lt;span&gt;    Pool,
+&lt;&#x2F;span&gt;&lt;span&gt;    MySql,
+&lt;&#x2F;span&gt;&lt;span&gt;    FromRow,
+&lt;&#x2F;span&gt;&lt;span&gt;    mysql::MySqlRow, Row,
+&lt;&#x2F;span&gt;&lt;span&gt;};
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;use crate&lt;&#x2F;span&gt;&lt;span&gt;::utils::error::{
+&lt;&#x2F;span&gt;&lt;span&gt;    IError,
+&lt;&#x2F;span&gt;&lt;span&gt;    IResult,
+&lt;&#x2F;span&gt;&lt;span&gt;};
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;use &lt;&#x2F;span&gt;&lt;span&gt;serde::Serialize;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;use &lt;&#x2F;span&gt;&lt;span&gt;rand::Rng;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;#[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;derive&lt;&#x2F;span&gt;&lt;span&gt;(Debug, Serialize)]
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;pub struct &lt;&#x2F;span&gt;&lt;span&gt;Image {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;url&lt;&#x2F;span&gt;&lt;span&gt;: String,
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; implement the trait to support Serialize from sql result
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;impl&lt;&#x2F;span&gt;&lt;span&gt;&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;&amp;#39;a&lt;&#x2F;span&gt;&lt;span&gt;&amp;gt; FromRow&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;&amp;#39;a&lt;&#x2F;span&gt;&lt;span&gt;, MySqlRow&amp;gt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span&gt;Image {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;from_row&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;row&lt;&#x2F;span&gt;&lt;span&gt;: &amp;amp;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;&amp;#39;a&lt;&#x2F;span&gt;&lt;span&gt; MySqlRow) -&amp;gt; Result&amp;lt;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;Self&lt;&#x2F;span&gt;&lt;span&gt;, sqlx::Error&amp;gt; {
+&lt;&#x2F;span&gt;&lt;span&gt;        Ok(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;Self &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;            url: row.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;try_get&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;url&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;)?
+&lt;&#x2F;span&gt;&lt;span&gt;        })
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; 获取所有图片url的方法
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; 先计算所有图片的数量
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; 在根据数量生成一个随机数，将随机数作为起始位置获取10张图片的url
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; 之所以用`select url from image where id &amp;gt; ? limit 10`
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; 而不是`select url from image offset ? limit 10`
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; 是因为offset会获取结果并丢弃，这会拖慢sql的执行速度
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;pub&lt;&#x2F;span&gt;&lt;span&gt; async &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;fn &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;get_all_images&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;pool&lt;&#x2F;span&gt;&lt;span&gt;: &amp;amp;Pool&amp;lt;MySql&amp;gt;) -&amp;gt; IResult&amp;lt;Vec&amp;lt;Image&amp;gt;&amp;gt; {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; sql = &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;select count(*) from image&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; row = sqlx::query(sql)
+&lt;&#x2F;span&gt;&lt;span&gt;        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;fetch_one&lt;&#x2F;span&gt;&lt;span&gt;(pool)
+&lt;&#x2F;span&gt;&lt;span&gt;        .await
+&lt;&#x2F;span&gt;&lt;span&gt;        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;map_err&lt;&#x2F;span&gt;&lt;span&gt;(|_| IError::Database)?;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; total: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;i32 &lt;&#x2F;span&gt;&lt;span&gt;= row.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;get&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let mut&lt;&#x2F;span&gt;&lt;span&gt; rng = rand::thread_rng();
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; begin = rng.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;gen_range&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;..total);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; sql = &amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;select url from image where id &amp;gt; ? limit 10&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let&lt;&#x2F;span&gt;&lt;span&gt; images: Vec&amp;lt;Image&amp;gt; = sqlx::query_as::&amp;lt;_, Image&amp;gt;(sql)
+&lt;&#x2F;span&gt;&lt;span&gt;        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;bind&lt;&#x2F;span&gt;&lt;span&gt;(begin)
+&lt;&#x2F;span&gt;&lt;span&gt;        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;fetch_all&lt;&#x2F;span&gt;&lt;span&gt;(pool)
+&lt;&#x2F;span&gt;&lt;span&gt;        .await
+&lt;&#x2F;span&gt;&lt;span&gt;        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;map_err&lt;&#x2F;span&gt;&lt;span&gt;(|_| IError::Database)?;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    Ok(images)
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;vuekuang-jia-de-te-dian&quot;&gt;vue框架的特点&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;638d5e09b1fccdcd36ddab6e.jpg&quot; alt=&quot;vue&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h3 id=&quot;qian-duan-jia-zai-shu-ju-de-jie-kou&quot;&gt;前端加载数据的接口&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;js&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-js &quot;&gt;&lt;code class=&quot;language-js&quot; data-lang=&quot;js&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; src&#x2F;components&#x2F;MainController.js
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;export default &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;data&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;      images: [],
+&lt;&#x2F;span&gt;&lt;span&gt;      is_load: &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;false&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;    };
+&lt;&#x2F;span&gt;&lt;span&gt;  },
+&lt;&#x2F;span&gt;&lt;span&gt;  methods: {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; get image&amp;#39;s url from backend
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;load_images&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;that &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;this&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;get_images&lt;&#x2F;span&gt;&lt;span&gt;()
+&lt;&#x2F;span&gt;&lt;span&gt;        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;then&lt;&#x2F;span&gt;&lt;span&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;res&lt;&#x2F;span&gt;&lt;span&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;data &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;res&lt;&#x2F;span&gt;&lt;span&gt;.data;
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;length &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;data&lt;&#x2F;span&gt;&lt;span&gt;.length;
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;for &lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;0&lt;&#x2F;span&gt;&lt;span&gt;; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i &lt;&#x2F;span&gt;&lt;span&gt;&amp;lt; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;length&lt;&#x2F;span&gt;&lt;span&gt;; &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i&lt;&#x2F;span&gt;&lt;span&gt;++) {
+&lt;&#x2F;span&gt;&lt;span&gt;            &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;that&lt;&#x2F;span&gt;&lt;span&gt;.images.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;push&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;data&lt;&#x2F;span&gt;&lt;span&gt;[&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;i&lt;&#x2F;span&gt;&lt;span&gt;]);
+&lt;&#x2F;span&gt;&lt;span&gt;          }
+&lt;&#x2F;span&gt;&lt;span&gt;        })
+&lt;&#x2F;span&gt;&lt;span&gt;        .&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;catch&lt;&#x2F;span&gt;&lt;span&gt;((&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;err&lt;&#x2F;span&gt;&lt;span&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;color:#ebcb8b;&quot;&gt;console&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;log&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;err&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;        });
+&lt;&#x2F;span&gt;&lt;span&gt;    },
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; control the function load_images will only be used when the scroll touch the end
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;lazyLoading&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;scrollTop &lt;&#x2F;span&gt;&lt;span&gt;=
+&lt;&#x2F;span&gt;&lt;span&gt;        document.documentElement.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;scrollTop &lt;&#x2F;span&gt;&lt;span&gt;|| document.body.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;scrollTop&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;clientHeight &lt;&#x2F;span&gt;&lt;span&gt;= document.documentElement.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;clientHeight&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;scrollHeight &lt;&#x2F;span&gt;&lt;span&gt;= document.documentElement.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;scrollHeight&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;scrollTop &lt;&#x2F;span&gt;&lt;span&gt;+ &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;clientHeight &lt;&#x2F;span&gt;&lt;span&gt;&amp;gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;scrollHeight &lt;&#x2F;span&gt;&lt;span&gt;- &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;clientHeight &lt;&#x2F;span&gt;&lt;span&gt;* &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;3&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;this&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;is_load&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;        }
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;this&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;is_load &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;true&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;this&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;load_images&lt;&#x2F;span&gt;&lt;span&gt;();
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;this&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;is_load &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;false&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;      }
+&lt;&#x2F;span&gt;&lt;span&gt;    },
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;&#x2F;&#x2F; defer the function with timeout to avoid too many call at a time
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;debounce&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;func&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;dalay &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;100&lt;&#x2F;span&gt;&lt;span&gt;) {
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;timer&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;return &lt;&#x2F;span&gt;&lt;span&gt;(...&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;args&lt;&#x2F;span&gt;&lt;span&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;if &lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;timer&lt;&#x2F;span&gt;&lt;span&gt;) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;clearTimeout&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;timer&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;        &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;timer &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;setTimeout&lt;&#x2F;span&gt;&lt;span&gt;(() &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;          &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;func&lt;&#x2F;span&gt;&lt;span&gt;(...&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;args&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;        }, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;dalay&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;      };
+&lt;&#x2F;span&gt;&lt;span&gt;    },
+&lt;&#x2F;span&gt;&lt;span&gt;  },
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;created&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;let &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;that &lt;&#x2F;span&gt;&lt;span&gt;= &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;this&lt;&#x2F;span&gt;&lt;span&gt;;
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;this&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;$nextTick&lt;&#x2F;span&gt;&lt;span&gt;(() &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;=&amp;gt; &lt;&#x2F;span&gt;&lt;span&gt;{
+&lt;&#x2F;span&gt;&lt;span&gt;      &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;that&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;load_images&lt;&#x2F;span&gt;&lt;span&gt;();
+&lt;&#x2F;span&gt;&lt;span&gt;      window.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;addEventListener&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;scroll&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;that&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;debounce&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;that&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;lazyLoading&lt;&#x2F;span&gt;&lt;span&gt;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;100&lt;&#x2F;span&gt;&lt;span&gt;));
+&lt;&#x2F;span&gt;&lt;span&gt;    });
+&lt;&#x2F;span&gt;&lt;span&gt;  },
+&lt;&#x2F;span&gt;&lt;span&gt;  &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;unmounted&lt;&#x2F;span&gt;&lt;span&gt;() {
+&lt;&#x2F;span&gt;&lt;span&gt;    window.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#96b5b4;&quot;&gt;removeEventListener&lt;&#x2F;span&gt;&lt;span&gt;(&amp;quot;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;scroll&lt;&#x2F;span&gt;&lt;span&gt;&amp;quot;, &lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;this&lt;&#x2F;span&gt;&lt;span&gt;.&lt;&#x2F;span&gt;&lt;span style=&quot;color:#bf616a;&quot;&gt;lazyLoading&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span&gt;  },
+&lt;&#x2F;span&gt;&lt;span&gt;};
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;yong-lai-chu-shi-hua-shu-ju-ku-de-sqlwen-jian&quot;&gt;用来初始化数据库的sql文件&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;sql&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-sql &quot;&gt;&lt;code class=&quot;language-sql&quot; data-lang=&quot;sql&quot;&gt;&lt;span style=&quot;color:#65737e;&quot;&gt;-- source.sql
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;drop table&lt;&#x2F;span&gt;&lt;span&gt; if exists image;
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;create table &lt;&#x2F;span&gt;&lt;span style=&quot;color:#8fa1b3;&quot;&gt;image&lt;&#x2F;span&gt;&lt;span&gt;(
+&lt;&#x2F;span&gt;&lt;span&gt;    id &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;bigint&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;20&lt;&#x2F;span&gt;&lt;span&gt;) unsigned not &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;null&lt;&#x2F;span&gt;&lt;span&gt; auto_increment,
+&lt;&#x2F;span&gt;&lt;span&gt;    url &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;varchar&lt;&#x2F;span&gt;&lt;span&gt;(&lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;255&lt;&#x2F;span&gt;&lt;span&gt;) not &lt;&#x2F;span&gt;&lt;span style=&quot;color:#d08770;&quot;&gt;null&lt;&#x2F;span&gt;&lt;span&gt;,
+&lt;&#x2F;span&gt;&lt;span&gt;    &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;primary key&lt;&#x2F;span&gt;&lt;span&gt;(id)
+&lt;&#x2F;span&gt;&lt;span&gt;);
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;insert into&lt;&#x2F;span&gt;&lt;span&gt; image(url) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;values&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;https:&#x2F;&#x2F;pictu1.1plq.com&#x2F;p1587&#x2F;2021&#x2F;02&#x2F;21&#x2F;p1587-5434-72063.jpg&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;);
+&lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;insert into&lt;&#x2F;span&gt;&lt;span&gt; image(url) &lt;&#x2F;span&gt;&lt;span style=&quot;color:#b48ead;&quot;&gt;values&lt;&#x2F;span&gt;&lt;span&gt;(&amp;#39;&lt;&#x2F;span&gt;&lt;span style=&quot;color:#a3be8c;&quot;&gt;https:&#x2F;&#x2F;pictu1.1plq.com&#x2F;p1587&#x2F;2021&#x2F;02&#x2F;21&#x2F;p1587-5434-72064.jpg&lt;&#x2F;span&gt;&lt;span&gt;&amp;#39;);
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;yong-lai-gou-jian-he-fen-fa-jing-xiang-de-dockerfile&quot;&gt;用来构建和分发镜像的Dockerfile&lt;&#x2F;h3&gt;
+&lt;pre data-lang=&quot;docker&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-docker &quot;&gt;&lt;code class=&quot;language-docker&quot; data-lang=&quot;docker&quot;&gt;&lt;span&gt;# Dockerfile
+&lt;&#x2F;span&gt;&lt;span&gt;FROM ekidd&#x2F;rust-musl-builder AS build
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;WORKDIR &#x2F;app
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;ADD --chown=rust:rust . .
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;RUN sudo mkdir -p &#x2F;.cargo \
+&lt;&#x2F;span&gt;&lt;span&gt;&amp;amp;&amp;amp; sudo mv .&#x2F;config &#x2F;.cargo&#x2F;config \
+&lt;&#x2F;span&gt;&lt;span&gt;&amp;amp;&amp;amp; rustup target add x86_64-unknown-linux-musl \
+&lt;&#x2F;span&gt;&lt;span&gt;&amp;amp;&amp;amp; cargo build --release --target=x86_64-unknown-linux-musl
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;FROM alpine:latest
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;WORKDIR &#x2F;app
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;RUN mkdir conf
+&lt;&#x2F;span&gt;&lt;span&gt;COPY --from=build &#x2F;app&#x2F;target&#x2F;x86_64-unknown-linux-musl&#x2F;release&#x2F;imager .&#x2F;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;VOLUME [ &amp;quot;&#x2F;app&#x2F;conf&amp;quot; ]
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;EXPOSE 8000&#x2F;tcp
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;CMD [&amp;quot;&#x2F;app&#x2F;imager&amp;quot;]
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h3 id=&quot;nginxfan-xiang-dai-li-de-pei-zhi-wen-jian&quot;&gt;nginx反向代理的配置文件&lt;&#x2F;h3&gt;
+&lt;p&gt;imager使用前后端分离方式部署项目，使用nginx作为代理服务器&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;nginx&quot; style=&quot;background-color:#2b303b;color:#c0c5ce;&quot; class=&quot;language-nginx &quot;&gt;&lt;code class=&quot;language-nginx&quot; data-lang=&quot;nginx&quot;&gt;&lt;span&gt;# http.conf in remote
+&lt;&#x2F;span&gt;&lt;span&gt;# 后端接口服务器
+&lt;&#x2F;span&gt;&lt;span&gt;# 使用nginx做服务分流和负载均衡
+&lt;&#x2F;span&gt;&lt;span&gt;upstream imager_server {
+&lt;&#x2F;span&gt;&lt;span&gt;    server 172.17.0.1:8001;
+&lt;&#x2F;span&gt;&lt;span&gt;    server 172.17.0.1:8002;
+&lt;&#x2F;span&gt;&lt;span&gt;    server 172.17.0.1:8003;
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;server {
+&lt;&#x2F;span&gt;&lt;span&gt;    listen       80;
+&lt;&#x2F;span&gt;&lt;span&gt;    server_name  localhost;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    # 前端静态文件代理
+&lt;&#x2F;span&gt;&lt;span&gt;    location &#x2F; {
+&lt;&#x2F;span&gt;&lt;span&gt;        root   &#x2F;usr&#x2F;share&#x2F;nginx&#x2F;html&#x2F;imager&#x2F;dist;
+&lt;&#x2F;span&gt;&lt;span&gt;        index  index.html;
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    # 后端api接口代理
+&lt;&#x2F;span&gt;&lt;span&gt;    location &#x2F;api {
+&lt;&#x2F;span&gt;&lt;span&gt;	proxy_set_header Host $host;
+&lt;&#x2F;span&gt;&lt;span&gt;	proxy_set_header X-Real-Ip $remote_addr;
+&lt;&#x2F;span&gt;&lt;span&gt;	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+&lt;&#x2F;span&gt;&lt;span&gt;	proxy_set_header X-Forworded-For $http_x_forwarded_for;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;    # 重写uri路径
+&lt;&#x2F;span&gt;&lt;span&gt;	rewrite ^&#x2F;api&#x2F;?(.*)$ &#x2F;$1 break;
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;span&gt;	proxy_pass http:&#x2F;&#x2F;imager_server;
+&lt;&#x2F;span&gt;&lt;span&gt;    }
+&lt;&#x2F;span&gt;&lt;span&gt;}
+&lt;&#x2F;span&gt;&lt;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</content>
+	</entry>
+</feed>

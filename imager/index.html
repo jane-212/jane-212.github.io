@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+      <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+
+      <!-- Enable responsiveness on mobile devices-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+      <title>Blog</title>
+
+      
+
+      
+          <link rel="stylesheet" href="https://jane-212.github.io/site.css">
+      
+
+      
+      
+    </head>
+
+    <body class="hack dark main container">
+        
+    
+        
+                
+                    <header>
+                        <nav itemscope itemtype="http://schema.org/SiteNavigationElement">
+                        
+                            <a itemprop="url"
+                               class=""
+                               href="https:&#x2F;&#x2F;jane-212.github.io">
+                                <span itemprop="name">Home</span></a>
+                        
+                            <a itemprop="url"
+                               class=""
+                               href="https:&#x2F;&#x2F;jane-212.github.io&#x2F;categories">
+                                <span itemprop="name">Categories</span></a>
+                        
+                            <a itemprop="url"
+                               class=""
+                               href="https:&#x2F;&#x2F;jane-212.github.io&#x2F;tags">
+                                <span itemprop="name">Tags</span></a>
+                        
+                        </nav>
+                    </header>
+                
+            
+    
+
+<article itemscope itemtype="http://schema.org/BlogPosting">
+    <header>
+        <h1 itemprop="headline">分析关于imager网站用到的技术</h1>
+        <span class="muted">
+    <svg style="margin-bottom:-3px" class="i-clock" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <circle cx="16" cy="16" r="14"/>
+        <path d="M16 8 L16 16 20 20"/>
+    </svg>
+    <span>6 minute read</span>
+    <svg style="margin-bottom: -3px" class="i-edit" viewBox="0 0 32 32"
+         width="16" height="16" fill="none" stroke="currentcolor"
+         stroke-linecap="round" stroke-linejoin="round" stroke-width="6.25%">
+        <path d="M30 7 L25 2 5 22 3 29 10 27 Z M21 6 L26 11 Z M5 22 L10 27 Z"/>
+    </svg>
+
+    Published: 2022-12-05
+</span>
+    </header>
+    <div itemprop="articleBody">
+      <h1 id="imagerwang-zhan-zhong-yong-dao-de-ji-zhu">imager网站中用到的技术</h1>
+<ul>
+<li>后端使用<code>rust</code>语言的<code>actix-web</code>框架</li>
+<li>前端使用<code>vue</code>框架</li>
+<li>数据库使用<code>mysql</code></li>
+<li>分发与部署使用<code>docker</code></li>
+<li>版本控制与代码托管使用<code>git</code></li>
+</ul>
+<span id="continue-reading"></span>
+<blockquote>
+<p><a href="http://124.222.172.51">demo site</a></p>
+</blockquote>
+<h2 id="actix-webkuang-jia-de-te-dian">actix-web框架的特点</h2>
+<p><img src="https://pic.imgdb.cn/item/638d5dafb1fccdcd36dd3138.jpg" alt="actix-web" /></p>
+<h3 id="imagerwang-zhan-de-ru-kou-han-shu-wei-main-rszhong-de-mainhan-shu">imager网站的入口函数为main.rs中的main函数</h3>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#65737e;">// main.rs
+</span><span style="color:#b48ead;">pub mod </span><span>service;
+</span><span style="color:#b48ead;">mod </span><span>utils;
+</span><span style="color:#b48ead;">mod </span><span>model;
+</span><span>
+</span><span style="color:#b48ead;">use </span><span>actix_web::{
+</span><span>    web,
+</span><span>    App,
+</span><span>    HttpServer,
+</span><span>    middleware,
+</span><span>};
+</span><span style="color:#b48ead;">use </span><span>imager::service;
+</span><span style="color:#b48ead;">use </span><span>std::{
+</span><span>    fs::File,
+</span><span>    io::Read,
+</span><span>    result
+</span><span>};
+</span><span style="color:#b48ead;">use </span><span>serde::Deserialize;
+</span><span style="color:#b48ead;">use </span><span>sqlx::mysql::MySqlPoolOptions;
+</span><span style="color:#b48ead;">use </span><span>thiserror::Error;
+</span><span style="color:#b48ead;">use </span><span>log::info;
+</span><span>
+</span><span style="color:#65737e;">// used to parse the config.toml file on conf directory
+</span><span>#[</span><span style="color:#bf616a;">derive</span><span>(Deserialize)]
+</span><span style="color:#b48ead;">struct </span><span>Config {
+</span><span>    </span><span style="color:#bf616a;">server</span><span>: Server,
+</span><span>    </span><span style="color:#bf616a;">database</span><span>: Database,
+</span><span>}
+</span><span>
+</span><span>#[</span><span style="color:#bf616a;">derive</span><span>(Deserialize)]
+</span><span style="color:#b48ead;">struct </span><span>Server {
+</span><span>    </span><span style="color:#bf616a;">address</span><span>: String,
+</span><span>    </span><span style="color:#bf616a;">port</span><span>: </span><span style="color:#b48ead;">u16</span><span>,
+</span><span>    </span><span style="color:#bf616a;">log_level</span><span>: String,
+</span><span>}
+</span><span>
+</span><span>#[</span><span style="color:#bf616a;">derive</span><span>(Deserialize)]
+</span><span style="color:#b48ead;">struct </span><span>Database {
+</span><span>    </span><span style="color:#bf616a;">database_url</span><span>: String,
+</span><span>    </span><span style="color:#bf616a;">max_connection</span><span>: </span><span style="color:#b48ead;">u32</span><span>,
+</span><span>}
+</span><span>
+</span><span style="color:#65737e;">// my own runtime errors
+</span><span>#[</span><span style="color:#bf616a;">derive</span><span>(Error, Debug)]
+</span><span style="color:#b48ead;">enum </span><span>RError {
+</span><span>    #[</span><span style="color:#bf616a;">error</span><span>(&quot;</span><span style="color:#a3be8c;">{0}</span><span>&quot;)]
+</span><span>    Io(String),
+</span><span>    #[</span><span style="color:#bf616a;">error</span><span>(&quot;</span><span style="color:#a3be8c;">{0}</span><span>&quot;)]
+</span><span>    Database(String),
+</span><span>}
+</span><span>
+</span><span style="color:#b48ead;">type </span><span>RResult&lt;T&gt; = result::Result&lt;T, RError&gt;;
+</span><span>
+</span><span>#[</span><span style="color:#bf616a;">actix_web</span><span>::</span><span style="color:#bf616a;">main</span><span>]
+</span><span>async </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">main</span><span>() -&gt; RResult&lt;()&gt; {
+</span><span>    </span><span style="color:#65737e;">// read config&#39;s path from environment
+</span><span>    </span><span style="color:#b48ead;">let</span><span> config_path = </span><span style="color:#b48ead;">match </span><span>std::env::var(&quot;</span><span style="color:#a3be8c;">CONFIG_PATH</span><span>&quot;) {
+</span><span>        Ok(path) =&gt; path,
+</span><span>        Err(_) =&gt; &quot;</span><span style="color:#a3be8c;">conf/config.toml</span><span>&quot;.</span><span style="color:#96b5b4;">to_owned</span><span>(),
+</span><span>    };
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">let</span><span> config_path = config_path.</span><span style="color:#96b5b4;">as_str</span><span>();
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">let mut</span><span> file =
+</span><span>        File::open(config_path).</span><span style="color:#96b5b4;">map_err</span><span>(|_| RError::Io(format!(&quot;</span><span style="color:#a3be8c;">can&#39;t find </span><span style="color:#d08770;">{}</span><span>&quot;, config_path)))?;
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">let mut</span><span> config = String::new();
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">let </span><span>_ = file
+</span><span>        .</span><span style="color:#96b5b4;">read_to_string</span><span>(&amp;</span><span style="color:#b48ead;">mut</span><span> config)
+</span><span>        .</span><span style="color:#96b5b4;">map_err</span><span>(|_| RError::Io(format!(&quot;</span><span style="color:#a3be8c;">can&#39;t read from </span><span style="color:#d08770;">{}</span><span>&quot;, config_path)))?;
+</span><span>
+</span><span>    </span><span style="color:#65737e;">// parse config with toml crate
+</span><span>    </span><span style="color:#b48ead;">let</span><span> config: Config = toml::from_str(&amp;config)
+</span><span>        .</span><span style="color:#96b5b4;">map_err</span><span>(|_| RError::Io(format!(&quot;</span><span style="color:#a3be8c;">a mistake found in </span><span style="color:#d08770;">{}</span><span>&quot;, config_path)))?;
+</span><span>
+</span><span>    </span><span style="color:#65737e;">// init env_logger crate with the value from config
+</span><span>    std::env::set_var(&quot;</span><span style="color:#a3be8c;">RUST_LOG</span><span>&quot;, config.server.log_level);
+</span><span>    env_logger::init();
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">let</span><span> pool = MySqlPoolOptions::new()
+</span><span>        .</span><span style="color:#96b5b4;">max_connections</span><span>(config.database.max_connection)
+</span><span>        .</span><span style="color:#96b5b4;">connect</span><span>(&amp;config.database.database_url)
+</span><span>        .await
+</span><span>        .</span><span style="color:#96b5b4;">map_err</span><span>(|_| RError::Database(&quot;</span><span style="color:#a3be8c;">can&#39;t connect to database</span><span>&quot;.</span><span style="color:#96b5b4;">into</span><span>()))?;
+</span><span>
+</span><span>    info!(&quot;</span><span style="color:#a3be8c;">server start...</span><span>&quot;);
+</span><span>
+</span><span>    </span><span style="color:#65737e;">// bind and start the server
+</span><span>    </span><span style="color:#65737e;">// the server will listen the signal Ctrl+C
+</span><span>    HttpServer::new(</span><span style="color:#b48ead;">move </span><span>|| {
+</span><span>        App::new()
+</span><span>            .</span><span style="color:#96b5b4;">app_data</span><span>(web::Data::new(pool.</span><span style="color:#96b5b4;">clone</span><span>()))
+</span><span>            .</span><span style="color:#96b5b4;">wrap</span><span>(middleware::Logger::default())
+</span><span>            .</span><span style="color:#96b5b4;">configure</span><span>(service::route::init_route)
+</span><span>    })
+</span><span>    .</span><span style="color:#96b5b4;">bind</span><span>((config.server.address, config.server.port))
+</span><span>    .</span><span style="color:#96b5b4;">map_err</span><span>(|_| RError::Io(&quot;</span><span style="color:#a3be8c;">failed to bind the port</span><span>&quot;.</span><span style="color:#96b5b4;">into</span><span>()))?
+</span><span>    .</span><span style="color:#96b5b4;">run</span><span>()
+</span><span>    .await
+</span><span>    .</span><span style="color:#96b5b4;">map_err</span><span>(|_| RError::Io(&quot;</span><span style="color:#a3be8c;">can&#39;t run the server</span><span>&quot;.</span><span style="color:#96b5b4;">into</span><span>()))?;
+</span><span>
+</span><span>    info!(&quot;</span><span style="color:#a3be8c;">server quit...</span><span>&quot;);
+</span><span>
+</span><span>    Ok(())
+</span><span>}
+</span></code></pre>
+<h3 id="imagershi-yong-tong-yi-de-cuo-wu-lai-chu-li-qing-qiu-zhong-ke-neng-cun-zai-de-cuo-wu">imager使用统一的错误来处理请求中可能存在的错误</h3>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#65737e;">// utils/error.rs
+</span><span style="color:#b48ead;">use </span><span>serde_json::json;
+</span><span style="color:#b48ead;">use </span><span>thiserror::Error;
+</span><span style="color:#b48ead;">use </span><span>actix_web::{
+</span><span>    ResponseError,
+</span><span>    http::StatusCode,
+</span><span>    HttpResponse
+</span><span>};
+</span><span style="color:#b48ead;">use </span><span>std::result;
+</span><span>
+</span><span>#[</span><span style="color:#bf616a;">derive</span><span>(Error, Debug)]
+</span><span style="color:#b48ead;">pub enum </span><span>IError {
+</span><span>    #[</span><span style="color:#bf616a;">error</span><span>(&quot;</span><span style="color:#a3be8c;">database error</span><span>&quot;)]
+</span><span>    Database,
+</span><span>}
+</span><span>
+</span><span style="color:#b48ead;">pub type </span><span>IResult&lt;T&gt; = result::Result&lt;T, IError&gt;;
+</span><span>
+</span><span style="color:#65737e;">// implement the trait to make the error could be parse into the response
+</span><span style="color:#b48ead;">impl </span><span>ResponseError </span><span style="color:#b48ead;">for </span><span>IError {
+</span><span>    </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">error_response</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) -&gt; HttpResponse {
+</span><span>        HttpResponse::BadRequest()
+</span><span>            .</span><span style="color:#96b5b4;">json</span><span>(json!({
+</span><span>                &quot;</span><span style="color:#a3be8c;">code</span><span>&quot;: -</span><span style="color:#d08770;">1</span><span>,
+</span><span>                &quot;</span><span style="color:#a3be8c;">msg</span><span>&quot;: </span><span style="color:#bf616a;">self</span><span>.</span><span style="color:#96b5b4;">to_string</span><span>(),
+</span><span>            }))
+</span><span>    }
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">status_code</span><span>(&amp;</span><span style="color:#bf616a;">self</span><span>) -&gt; StatusCode {
+</span><span>        </span><span style="color:#b48ead;">match </span><span>*</span><span style="color:#bf616a;">self </span><span>{
+</span><span>            IError::Database =&gt; StatusCode::</span><span style="color:#d08770;">INTERNAL_SERVER_ERROR</span><span>,
+</span><span>        }
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<h3 id="fan-hui-tu-pian-shu-ju-de-jie-kou">返回图片数据的接口</h3>
+<pre data-lang="rust" style="background-color:#2b303b;color:#c0c5ce;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#65737e;">// model/image.rs
+</span><span style="color:#b48ead;">use </span><span>sqlx::{
+</span><span>    Pool,
+</span><span>    MySql,
+</span><span>    FromRow,
+</span><span>    mysql::MySqlRow, Row,
+</span><span>};
+</span><span style="color:#b48ead;">use crate</span><span>::utils::error::{
+</span><span>    IError,
+</span><span>    IResult,
+</span><span>};
+</span><span style="color:#b48ead;">use </span><span>serde::Serialize;
+</span><span style="color:#b48ead;">use </span><span>rand::Rng;
+</span><span>
+</span><span>#[</span><span style="color:#bf616a;">derive</span><span>(Debug, Serialize)]
+</span><span style="color:#b48ead;">pub struct </span><span>Image {
+</span><span>    </span><span style="color:#bf616a;">url</span><span>: String,
+</span><span>}
+</span><span>
+</span><span style="color:#65737e;">// implement the trait to support Serialize from sql result
+</span><span style="color:#b48ead;">impl</span><span>&lt;</span><span style="color:#b48ead;">&#39;a</span><span>&gt; FromRow&lt;</span><span style="color:#b48ead;">&#39;a</span><span>, MySqlRow&gt; </span><span style="color:#b48ead;">for </span><span>Image {
+</span><span>    </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">from_row</span><span>(</span><span style="color:#bf616a;">row</span><span>: &amp;</span><span style="color:#b48ead;">&#39;a</span><span> MySqlRow) -&gt; Result&lt;</span><span style="color:#b48ead;">Self</span><span>, sqlx::Error&gt; {
+</span><span>        Ok(</span><span style="color:#b48ead;">Self </span><span>{
+</span><span>            url: row.</span><span style="color:#96b5b4;">try_get</span><span>(&quot;</span><span style="color:#a3be8c;">url</span><span>&quot;)?
+</span><span>        })
+</span><span>    }
+</span><span>}
+</span><span>
+</span><span style="color:#65737e;">// 获取所有图片url的方法
+</span><span style="color:#65737e;">// 先计算所有图片的数量
+</span><span style="color:#65737e;">// 在根据数量生成一个随机数，将随机数作为起始位置获取10张图片的url
+</span><span style="color:#65737e;">// 之所以用`select url from image where id &gt; ? limit 10`
+</span><span style="color:#65737e;">// 而不是`select url from image offset ? limit 10`
+</span><span style="color:#65737e;">// 是因为offset会获取结果并丢弃，这会拖慢sql的执行速度
+</span><span style="color:#b48ead;">pub</span><span> async </span><span style="color:#b48ead;">fn </span><span style="color:#8fa1b3;">get_all_images</span><span>(</span><span style="color:#bf616a;">pool</span><span>: &amp;Pool&lt;MySql&gt;) -&gt; IResult&lt;Vec&lt;Image&gt;&gt; {
+</span><span>    </span><span style="color:#b48ead;">let</span><span> sql = &quot;</span><span style="color:#a3be8c;">select count(*) from image</span><span>&quot;;
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">let</span><span> row = sqlx::query(sql)
+</span><span>        .</span><span style="color:#96b5b4;">fetch_one</span><span>(pool)
+</span><span>        .await
+</span><span>        .</span><span style="color:#96b5b4;">map_err</span><span>(|_| IError::Database)?;
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">let</span><span> total: </span><span style="color:#b48ead;">i32 </span><span>= row.</span><span style="color:#96b5b4;">get</span><span>(</span><span style="color:#d08770;">0</span><span>);
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">let mut</span><span> rng = rand::thread_rng();
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">let</span><span> begin = rng.</span><span style="color:#96b5b4;">gen_range</span><span>(</span><span style="color:#d08770;">0</span><span>..total);
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">let</span><span> sql = &quot;</span><span style="color:#a3be8c;">select url from image where id &gt; ? limit 10</span><span>&quot;;
+</span><span>
+</span><span>    </span><span style="color:#b48ead;">let</span><span> images: Vec&lt;Image&gt; = sqlx::query_as::&lt;_, Image&gt;(sql)
+</span><span>        .</span><span style="color:#96b5b4;">bind</span><span>(begin)
+</span><span>        .</span><span style="color:#96b5b4;">fetch_all</span><span>(pool)
+</span><span>        .await
+</span><span>        .</span><span style="color:#96b5b4;">map_err</span><span>(|_| IError::Database)?;
+</span><span>
+</span><span>    Ok(images)
+</span><span>}
+</span></code></pre>
+<h2 id="vuekuang-jia-de-te-dian">vue框架的特点</h2>
+<p><img src="https://pic.imgdb.cn/item/638d5e09b1fccdcd36ddab6e.jpg" alt="vue" /></p>
+<h3 id="qian-duan-jia-zai-shu-ju-de-jie-kou">前端加载数据的接口</h3>
+<pre data-lang="js" style="background-color:#2b303b;color:#c0c5ce;" class="language-js "><code class="language-js" data-lang="js"><span style="color:#65737e;">// src/components/MainController.js
+</span><span style="color:#b48ead;">export default </span><span>{
+</span><span>  </span><span style="color:#8fa1b3;">data</span><span>() {
+</span><span>    </span><span style="color:#b48ead;">return </span><span>{
+</span><span>      images: [],
+</span><span>      is_load: </span><span style="color:#d08770;">false</span><span>,
+</span><span>    };
+</span><span>  },
+</span><span>  methods: {
+</span><span>    </span><span style="color:#65737e;">// get image&#39;s url from backend
+</span><span>    </span><span style="color:#8fa1b3;">load_images</span><span>() {
+</span><span>      </span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">that </span><span>= </span><span style="color:#bf616a;">this</span><span>;
+</span><span>      </span><span style="color:#8fa1b3;">get_images</span><span>()
+</span><span>        .</span><span style="color:#96b5b4;">then</span><span>((</span><span style="color:#bf616a;">res</span><span>) </span><span style="color:#b48ead;">=&gt; </span><span>{
+</span><span>          </span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">data </span><span>= </span><span style="color:#bf616a;">res</span><span>.data;
+</span><span>          </span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">length </span><span>= </span><span style="color:#bf616a;">data</span><span>.length;
+</span><span>          </span><span style="color:#b48ead;">for </span><span>(</span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">i </span><span>= </span><span style="color:#d08770;">0</span><span>; </span><span style="color:#bf616a;">i </span><span>&lt; </span><span style="color:#bf616a;">length</span><span>; </span><span style="color:#bf616a;">i</span><span>++) {
+</span><span>            </span><span style="color:#bf616a;">that</span><span>.images.</span><span style="color:#96b5b4;">push</span><span>(</span><span style="color:#bf616a;">data</span><span>[</span><span style="color:#bf616a;">i</span><span>]);
+</span><span>          }
+</span><span>        })
+</span><span>        .</span><span style="color:#96b5b4;">catch</span><span>((</span><span style="color:#bf616a;">err</span><span>) </span><span style="color:#b48ead;">=&gt; </span><span>{
+</span><span>          </span><span style="color:#ebcb8b;">console</span><span>.</span><span style="color:#96b5b4;">log</span><span>(</span><span style="color:#bf616a;">err</span><span>);
+</span><span>        });
+</span><span>    },
+</span><span>    </span><span style="color:#65737e;">// control the function load_images will only be used when the scroll touch the end
+</span><span>    </span><span style="color:#8fa1b3;">lazyLoading</span><span>() {
+</span><span>      </span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">scrollTop </span><span>=
+</span><span>        document.documentElement.</span><span style="color:#bf616a;">scrollTop </span><span>|| document.body.</span><span style="color:#bf616a;">scrollTop</span><span>;
+</span><span>      </span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">clientHeight </span><span>= document.documentElement.</span><span style="color:#bf616a;">clientHeight</span><span>;
+</span><span>      </span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">scrollHeight </span><span>= document.documentElement.</span><span style="color:#bf616a;">scrollHeight</span><span>;
+</span><span>      </span><span style="color:#b48ead;">if </span><span>(</span><span style="color:#bf616a;">scrollTop </span><span>+ </span><span style="color:#bf616a;">clientHeight </span><span>&gt;= </span><span style="color:#bf616a;">scrollHeight </span><span>- </span><span style="color:#bf616a;">clientHeight </span><span>* </span><span style="color:#d08770;">3</span><span>) {
+</span><span>        </span><span style="color:#b48ead;">if </span><span>(</span><span style="color:#bf616a;">this</span><span>.</span><span style="color:#bf616a;">is_load</span><span>) {
+</span><span>          </span><span style="color:#b48ead;">return</span><span>;
+</span><span>        }
+</span><span>
+</span><span>        </span><span style="color:#bf616a;">this</span><span>.</span><span style="color:#bf616a;">is_load </span><span>= </span><span style="color:#d08770;">true</span><span>;
+</span><span>        </span><span style="color:#bf616a;">this</span><span>.</span><span style="color:#8fa1b3;">load_images</span><span>();
+</span><span>        </span><span style="color:#bf616a;">this</span><span>.</span><span style="color:#bf616a;">is_load </span><span>= </span><span style="color:#d08770;">false</span><span>;
+</span><span>      }
+</span><span>    },
+</span><span>    </span><span style="color:#65737e;">// defer the function with timeout to avoid too many call at a time
+</span><span>    </span><span style="color:#8fa1b3;">debounce</span><span>(</span><span style="color:#bf616a;">func</span><span>, </span><span style="color:#bf616a;">dalay </span><span>= </span><span style="color:#d08770;">100</span><span>) {
+</span><span>      </span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">timer</span><span>;
+</span><span>      </span><span style="color:#b48ead;">return </span><span>(...</span><span style="color:#bf616a;">args</span><span>) </span><span style="color:#b48ead;">=&gt; </span><span>{
+</span><span>        </span><span style="color:#b48ead;">if </span><span>(</span><span style="color:#bf616a;">timer</span><span>) </span><span style="color:#96b5b4;">clearTimeout</span><span>(</span><span style="color:#bf616a;">timer</span><span>);
+</span><span>        </span><span style="color:#bf616a;">timer </span><span>= </span><span style="color:#96b5b4;">setTimeout</span><span>(() </span><span style="color:#b48ead;">=&gt; </span><span>{
+</span><span>          </span><span style="color:#8fa1b3;">func</span><span>(...</span><span style="color:#bf616a;">args</span><span>);
+</span><span>        }, </span><span style="color:#bf616a;">dalay</span><span>);
+</span><span>      };
+</span><span>    },
+</span><span>  },
+</span><span>  </span><span style="color:#8fa1b3;">created</span><span>() {
+</span><span>    </span><span style="color:#b48ead;">let </span><span style="color:#bf616a;">that </span><span>= </span><span style="color:#bf616a;">this</span><span>;
+</span><span>    </span><span style="color:#bf616a;">this</span><span>.</span><span style="color:#8fa1b3;">$nextTick</span><span>(() </span><span style="color:#b48ead;">=&gt; </span><span>{
+</span><span>      </span><span style="color:#bf616a;">that</span><span>.</span><span style="color:#8fa1b3;">load_images</span><span>();
+</span><span>      window.</span><span style="color:#96b5b4;">addEventListener</span><span>(&quot;</span><span style="color:#a3be8c;">scroll</span><span>&quot;, </span><span style="color:#bf616a;">that</span><span>.</span><span style="color:#8fa1b3;">debounce</span><span>(</span><span style="color:#bf616a;">that</span><span>.</span><span style="color:#bf616a;">lazyLoading</span><span>, </span><span style="color:#d08770;">100</span><span>));
+</span><span>    });
+</span><span>  },
+</span><span>  </span><span style="color:#8fa1b3;">unmounted</span><span>() {
+</span><span>    window.</span><span style="color:#96b5b4;">removeEventListener</span><span>(&quot;</span><span style="color:#a3be8c;">scroll</span><span>&quot;, </span><span style="color:#bf616a;">this</span><span>.</span><span style="color:#bf616a;">lazyLoading</span><span>);
+</span><span>  },
+</span><span>};
+</span></code></pre>
+<h3 id="yong-lai-chu-shi-hua-shu-ju-ku-de-sqlwen-jian">用来初始化数据库的sql文件</h3>
+<pre data-lang="sql" style="background-color:#2b303b;color:#c0c5ce;" class="language-sql "><code class="language-sql" data-lang="sql"><span style="color:#65737e;">-- source.sql
+</span><span style="color:#b48ead;">drop table</span><span> if exists image;
+</span><span style="color:#b48ead;">create table </span><span style="color:#8fa1b3;">image</span><span>(
+</span><span>    id </span><span style="color:#b48ead;">bigint</span><span>(</span><span style="color:#d08770;">20</span><span>) unsigned not </span><span style="color:#d08770;">null</span><span> auto_increment,
+</span><span>    url </span><span style="color:#b48ead;">varchar</span><span>(</span><span style="color:#d08770;">255</span><span>) not </span><span style="color:#d08770;">null</span><span>,
+</span><span>    </span><span style="color:#b48ead;">primary key</span><span>(id)
+</span><span>);
+</span><span style="color:#b48ead;">insert into</span><span> image(url) </span><span style="color:#b48ead;">values</span><span>(&#39;</span><span style="color:#a3be8c;">https://pictu1.1plq.com/p1587/2021/02/21/p1587-5434-72063.jpg</span><span>&#39;);
+</span><span style="color:#b48ead;">insert into</span><span> image(url) </span><span style="color:#b48ead;">values</span><span>(&#39;</span><span style="color:#a3be8c;">https://pictu1.1plq.com/p1587/2021/02/21/p1587-5434-72064.jpg</span><span>&#39;);
+</span><span>
+</span></code></pre>
+<h3 id="yong-lai-gou-jian-he-fen-fa-jing-xiang-de-dockerfile">用来构建和分发镜像的Dockerfile</h3>
+<pre data-lang="docker" style="background-color:#2b303b;color:#c0c5ce;" class="language-docker "><code class="language-docker" data-lang="docker"><span># Dockerfile
+</span><span>FROM ekidd/rust-musl-builder AS build
+</span><span>
+</span><span>WORKDIR /app
+</span><span>
+</span><span>ADD --chown=rust:rust . .
+</span><span>
+</span><span>RUN sudo mkdir -p /.cargo \
+</span><span>&amp;&amp; sudo mv ./config /.cargo/config \
+</span><span>&amp;&amp; rustup target add x86_64-unknown-linux-musl \
+</span><span>&amp;&amp; cargo build --release --target=x86_64-unknown-linux-musl
+</span><span>
+</span><span>FROM alpine:latest
+</span><span>
+</span><span>WORKDIR /app
+</span><span>
+</span><span>RUN mkdir conf
+</span><span>COPY --from=build /app/target/x86_64-unknown-linux-musl/release/imager ./
+</span><span>
+</span><span>VOLUME [ &quot;/app/conf&quot; ]
+</span><span>
+</span><span>EXPOSE 8000/tcp
+</span><span>
+</span><span>CMD [&quot;/app/imager&quot;]
+</span></code></pre>
+<h3 id="nginxfan-xiang-dai-li-de-pei-zhi-wen-jian">nginx反向代理的配置文件</h3>
+<p>imager使用前后端分离方式部署项目，使用nginx作为代理服务器</p>
+<pre data-lang="nginx" style="background-color:#2b303b;color:#c0c5ce;" class="language-nginx "><code class="language-nginx" data-lang="nginx"><span># http.conf in remote
+</span><span># 后端接口服务器
+</span><span># 使用nginx做服务分流和负载均衡
+</span><span>upstream imager_server {
+</span><span>    server 172.17.0.1:8001;
+</span><span>    server 172.17.0.1:8002;
+</span><span>    server 172.17.0.1:8003;
+</span><span>}
+</span><span>
+</span><span>server {
+</span><span>    listen       80;
+</span><span>    server_name  localhost;
+</span><span>
+</span><span>    # 前端静态文件代理
+</span><span>    location / {
+</span><span>        root   /usr/share/nginx/html/imager/dist;
+</span><span>        index  index.html;
+</span><span>    }
+</span><span>
+</span><span>    # 后端api接口代理
+</span><span>    location /api {
+</span><span>	proxy_set_header Host $host;
+</span><span>	proxy_set_header X-Real-Ip $remote_addr;
+</span><span>	proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+</span><span>	proxy_set_header X-Forworded-For $http_x_forwarded_for;
+</span><span>
+</span><span>    # 重写uri路径
+</span><span>	rewrite ^/api/?(.*)$ /$1 break;
+</span><span>
+</span><span>	proxy_pass http://imager_server;
+</span><span>    }
+</span><span>}
+</span><span>
+</span></code></pre>
+
+    </div>
+
+    
+        <footer>
+            <hr>
+            <p>
+                
+                    Published by jane
+                
+                
+                    
+                    in <a href="https://jane-212.github.io/categories/ji-zhu-fen-xi/">技术分析</a>
+                
+                
+                    and
+                    tagged
+                    
+                        <a href="https://jane-212.github.io/tags/rust/">rust</a>
+                        
+                            
+                                
+                                    ,
+                                
+                            
+                        
+                    
+                        <a href="https://jane-212.github.io/tags/vue/">vue</a>
+                        
+                            
+                                
+                                    ,
+                                
+                            
+                        
+                    
+                        <a href="https://jane-212.github.io/tags/nginx/">nginx</a>
+                        
+                            
+                                
+                                    and
+                                
+                            
+                        
+                    
+                        <a href="https://jane-212.github.io/tags/docker/">docker</a>
+                        
+                            
+                        
+                    
+                
+            </p>
+            
+            
+        </footer>
+    
+</article>
+
+
+    </body>
+
+</html>

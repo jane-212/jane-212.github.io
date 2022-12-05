@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+	<title>Blog - 有趣的电影和电视剧</title>
+	<link href="https://jane-212.github.io/categories/you-qu-de-dian-ying-he-dian-shi-ju/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://jane-212.github.io"/>
+	<generator uri="https://www.getzola.org/">Zola</generator>
+	<updated>2022-11-28T00:00:00+00:00</updated>
+	<id>https://jane-212.github.io/categories/you-qu-de-dian-ying-he-dian-shi-ju/atom.xml</id>
+	<entry xml:lang="en">
+		<title>一些有趣的电影</title>
+		<published>2022-11-28T00:00:00+00:00</published>
+		<updated>2022-11-28T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://jane-212.github.io/movie/" type="text/html"/>
+		<id>https://jane-212.github.io/movie/</id>
+		<content type="html">&lt;p&gt;一些有趣的电影&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+只有你&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;6384c56216f2c2beb111f1c6.png&quot; alt=&quot;Only You&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;span id=&quot;continue-reading&quot;&gt;&lt;&#x2F;span&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+忠犬八公的故事&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;6384c5a416f2c2beb1124e75.png&quot; alt=&quot;Hachi: A Dog&#x27;s Tale&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+秘密&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;6384c5ec16f2c2beb112d061.png&quot; alt=&quot;Secret&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+情书&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;6384c66916f2c2beb1141b03.png&quot; alt=&quot;Love Letter&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+我是谁：没有绝对安全的系统&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;6384c69d16f2c2beb114b670.png&quot; alt=&quot;Who Am I-No System Is Safe&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+初恋这件小事&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;6384c6d416f2c2beb11564ab.png&quot; alt=&quot;First Love&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+</content>
+	</entry>
+	<entry xml:lang="en">
+		<title>一些有趣的电视剧</title>
+		<published>2022-11-28T00:00:00+00:00</published>
+		<updated>2022-11-28T00:00:00+00:00</updated>
+		<link rel="alternate" href="https://jane-212.github.io/tv/" type="text/html"/>
+		<id>https://jane-212.github.io/tv/</id>
+		<content type="html">&lt;p&gt;一些有趣的电视剧&lt;&#x2F;p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&quot;&quot; type=&quot;checkbox&quot; checked=&quot;&quot;&#x2F;&gt;
+拜托小姐&lt;&#x2F;li&gt;
+&lt;&#x2F;ul&gt;
+&lt;p&gt;&lt;img src=&quot;https:&#x2F;&#x2F;pic.imgdb.cn&#x2F;item&#x2F;6384c73316f2c2beb115f150.png&quot; alt=&quot;Lady Castle&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;span id=&quot;continue-reading&quot;&gt;&lt;&#x2F;span&gt;</content>
+	</entry>
+</feed>
