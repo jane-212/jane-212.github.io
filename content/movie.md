@@ -2,6 +2,9 @@
 title = "一些有趣的电影"
 date = 2022-11-28
 
+[extra]
+banner_path = "/movie/walle.jpg"
+
 [taxonomies]
 tags = ["电影"]
 +++
