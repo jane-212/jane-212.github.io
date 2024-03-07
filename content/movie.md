@@ -6,6 +6,7 @@ date = 2022-11-28
 tags = ["电影"]
 
 [extra]
+description = "des"
 banner = "/static/movie/walle.jpg"
 +++
 
