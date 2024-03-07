@@ -1,10 +1,12 @@
 +++
 title = "一些有趣的电影"
 date = 2022-11-28
-banner = "/static/movie/walle.jpg"
 
 [taxonomies]
 tags = ["电影"]
+
+[extra]
+banner = "/static/movie/walle.jpg"
 +++
 
 记录一些有意思的电影
