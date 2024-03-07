@@ -1,0 +1,13 @@
+base_url = "https://jane-212.github.io"
+title = "Jane's Blog"
+theme = "paper"
+
+taxonomies = [{ name = "tags", paginate_by = 5 }]
+
+[markdown]
+highlight_code = true
+highlight_theme = "gruvbox-dark"
+
+[extra]
+author = "Jane"
+author_url = "https://github.com/jane-212"
