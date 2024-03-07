@@ -4,6 +4,10 @@ date = 2022-11-28
 
 [taxonomies]
 tags = ["电视剧"]
+
+[extra]
+description = "Some intersting tv"
+banner = "/static/tv/lady-castle.jpg"
 +++
 
 记录一些有意思的电视剧

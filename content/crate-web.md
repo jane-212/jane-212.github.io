@@ -4,6 +4,10 @@ date = 2024-03-07
 
 [taxonomies]
 tags = ["rust", "web", "crate"]
+
+[extra]
+description = "Some rust crates about web"
+banner = "/static/crate/logo.png"
 +++
 
 搜集一些rust开发中常用的crates

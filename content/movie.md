@@ -6,7 +6,7 @@ date = 2022-11-28
 tags = ["电影"]
 
 [extra]
-description = "des"
+description = "Some intersting movies"
 banner = "/static/movie/walle.jpg"
 +++
 
