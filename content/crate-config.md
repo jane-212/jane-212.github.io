@@ -1,5 +1,5 @@
 +++
-title = "[config]常用crate"
+title = "常用crate - config"
 date = 2024-03-07
 
 [taxonomies]
