@@ -44,14 +44,37 @@
         <!-- Feeds -->
         {% if config.generate_feed %}<link rel="alternate" type={% if config.feed_filename == "atom.xml" %}"application/atom+xml"{% else %}"application/rss+xml"{% endif %} title="RSS" href="{{ get_url(path=config.feed_filename) | safe }}">{% endif %}
 
-        <!-- Google Analytics -->
-        {% if config.extra.google_analytics.enabled %}<script async src="https://www.googletagmanager.com/gtag/js?id={{ config.extra.google_analytics.id }}"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '{{ config.extra.google_analytics.id }}');
-        </script>{% endif %}
+        <!-- Countly -->
+        {% if config.extra.countly.enabled %}
+        <script type='text/javascript'>
+        //some default pre init
+        var Countly = Countly || {};
+        Countly.q = Countly.q || [];
+        
+        //provide countly initialization parameters
+        Countly.app_key = '1db43d602c430f0fcc0e9f18d63c38a78c9e5c6b';
+        Countly.url = 'https://jane-7b7e2008baf38.flex.countly.com';
+        
+        Countly.q.push(['track_sessions']);
+        Countly.q.push(['track_pageview']);
+        Countly.q.push(['track_clicks']);
+        Countly.q.push(['track_scrolls']);
+        Countly.q.push(['track_errors']);
+        Countly.q.push(['track_links']);
+        Countly.q.push(['track_forms']);
+        Countly.q.push(['collect_from_forms']);
+        
+        //load countly script asynchronously
+        (function() {
+           var cly = document.createElement('script'); cly.type = 'text/javascript';
+           cly.async = true;
+           //enter url of script here
+           cly.src = 'https://cdnjs.cloudflare.com/ajax/libs/countly-sdk-web/20.4.0/countly.min.js';
+           cly.onload = function(){Countly.init()};
+           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(cly, s);
+        })();
+        </script>
+        {% endif %}
 
         <script>
             function setTheme() {
@@ -99,6 +122,11 @@
     
     {% if page %}<body class="single">{% else %}<body class="list">{% endif %}
     
+    <!-- Countly -->
+    {% if config.extra.countly.enabled %}
+    <noscript><img src='https://jane-7b7e2008baf38.flex.countly.com/pixel.png?app_key=1db43d602c430f0fcc0e9f18d63c38a78c9e5c6b&begin_session=1'/></noscript>
+    {% endif %}
+        
     <!-- Apply theme -->
     <script>
       setTheme();

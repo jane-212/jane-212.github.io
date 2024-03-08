@@ -11,3 +11,4 @@ highlight_theme = "gruvbox-dark"
 [extra]
 author = "Jane"
 author_url = "https://github.com/jane-212"
+countly = { enabled = true, key = "1db43d602c430f0fcc0e9f18d63c38a78c9e5c6b" }
