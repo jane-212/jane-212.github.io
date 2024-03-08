@@ -16,4 +16,4 @@ banner = "/static/tv/lady-castle.jpg"
 
 ## 拜托小姐
 
-![Lady Castle](/tv/lady-castle.jpg "Lady Castle")
+![Lady Castle](/tv/lady-castle.jpg)
