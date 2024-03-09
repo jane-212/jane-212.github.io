@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Jane&#x27;s Blog</title>
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+        <!-- Enable responsiveness on mobile devices-->
+        <!-- viewport-fit=cover is to support iPhone X rounded corners and notch in landscape-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
+
+        <!-- Standard meta tags -->
+        <meta name="author" content="Jane">
+        
+
+        <!-- Open Graph Tags -->
+        <meta property="og:site_name" content="Jane&#x27;s Blog">
+        
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://jane-212.github.io">
+        
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="https://jane-212.github.io/main.css">
+
+        <!-- Feeds -->
+        
+
+        <!-- Countly -->
+        
+        <script type='text/javascript'>
+        //some default pre init
+        var Countly = Countly || {};
+        Countly.q = Countly.q || [];
+        
+        //provide countly initialization parameters
+        Countly.app_key = '1db43d602c430f0fcc0e9f18d63c38a78c9e5c6b';
+        Countly.url = 'https://jane-7b7e2008baf38.flex.countly.com';
+        
+        Countly.q.push(['track_sessions']);
+        Countly.q.push(['track_pageview']);
+        Countly.q.push(['track_clicks']);
+        Countly.q.push(['track_scrolls']);
+        Countly.q.push(['track_errors']);
+        Countly.q.push(['track_links']);
+        Countly.q.push(['track_forms']);
+        Countly.q.push(['collect_from_forms']);
+        
+        //load countly script asynchronously
+        (function() {
+           var cly = document.createElement('script'); cly.type = 'text/javascript';
+           cly.async = true;
+           //enter url of script here
+           cly.src = 'https://cdnjs.cloudflare.com/ajax/libs/countly-sdk-web/20.4.0/countly.min.js';
+           cly.onload = function(){Countly.init()};
+           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(cly, s);
+        })();
+        </script>
+        
+
+        <script>
+            function setTheme() {
+                const time = new Date();
+      
+                const prev = localStorage.getItem('date');
+                const date = String(time.getMonth() + 1) + '.' + String(time.getDate());
+      
+                const now = time.getTime();
+                let sunrise;
+                let sunset;
+      
+                function setBodyClass() {
+                    if (now > sunrise && now < sunset) return;
+                    document.body.classList.add('dark');
+                }
+      
+                if (date !== prev) {
+                    fetch('https://api.ipgeolocation.io/astronomy?apiKey=5ed37d85103e4defa5df4c5298ed5215')
+                        .then(res => res.json())
+                        .then(data => {
+                            sunrise = data.sunrise.split(':').map(Number);
+                            sunset = data.sunset.split(':').map(Number);
+                    })
+                    .catch(() => {
+                        sunrise = [7, 0];
+                        sunset = [19, 0];
+                    })
+                    .finally(() => {
+                        sunrise = time.setHours(sunrise[0], sunrise[1], 0);
+                        sunset = time.setHours(sunset[0], sunset[1], 0);
+                        setBodyClass();
+                        localStorage.setItem('sunrise', sunrise);
+                        localStorage.setItem('sunset', sunset);
+                    });
+                    localStorage.setItem('date', date);
+                } else {
+                    sunrise = Number(localStorage.getItem('sunrise'));
+                    sunset = Number(localStorage.getItem('sunset'));
+                    setBodyClass();
+                }
+            }
+        </script>
+    </head>
+    
+    <body class="list">
+    
+    <!-- Countly -->
+    
+    <noscript><img src='https://jane-7b7e2008baf38.flex.countly.com/pixel.png?app_key=1db43d602c430f0fcc0e9f18d63c38a78c9e5c6b&begin_session=1'/></noscript>
+    
+        
+    <!-- Apply theme -->
+    <script>
+      setTheme();
+    </script>
+
+    
+        <header class="header">
+            <nav class="nav">
+                
+                <h1 class="logo"><a href="https://jane-212.github.io">Jane&#x27;s Blog</a></h1>
+                
+                <ul class="menu">
+                    
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main">
+            
+    <div class="posts">
+        <h2>Tag: database</h2>
+        
+            
+        
+        
+        <article class="post-entry">
+            
+                    <header class="entry-header">
+                        <h2>尝试一下surrealdb</h2>
+                    </header>
+                    <section class=entry-content>
+                        <p>今天上手体验了一下surrealdb，可以很方便在内存，本地和远程切换的数据库</p>
+
+                    </section>
+                    <footer class="entry-footer">
+                        <time>March  8, 2024</time>
+                    </footer>
+                    <a class="entry-link" href="https:&#x2F;&#x2F;jane-212.github.io&#x2F;surrealdb-first-try&#x2F;"></a>
+
+        </article>
+        
+        
+        
+        <footer class="page-footer">
+            <nav class="pagination">
+                
+                <!-- <span>Page 1 of 1</span> -->
+                
+            </nav>
+        </footer>
+        
+    </div>
+
+        </main>
+
+        <footer class="footer">
+            <span>&copy; 2024 <a href="https://jane-212.github.io">Jane&#x27;s Blog</a></span>
+            <span>&middot;</span>
+            <span>Powered by <a href="https://www.getzola.org" rel="noopener" target="_blank">Zola</a>️</span>
+            <span>&middot;</span>
+            <span>Theme️ <a href="https://github.com/schoenenberg/zola-paper" rel="noopener" target="_blank">Zola-Paper</a></span>
+        </footer>
+    
+    </body>
+</html>

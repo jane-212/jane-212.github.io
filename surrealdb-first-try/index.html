@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Jane&#x27;s Blog - 尝试一下surrealdb</title>
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+        <!-- Enable responsiveness on mobile devices-->
+        <!-- viewport-fit=cover is to support iPhone X rounded corners and notch in landscape-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
+
+        <!-- Standard meta tags -->
+        <meta name="author" content="Jane">
+        <meta name="description" content="surrealdb初上手">
+
+        <!-- Open Graph Tags -->
+        <meta property="og:site_name" content="Jane&#x27;s Blog">
+        
+        <meta property="og:title" content="尝试一下surrealdb">
+        <meta property="og:url" content="https://jane-212.github.io/surrealdb-first-try">
+        <meta property="og:description" content="surrealdb初上手">
+        
+        
+        <meta property='og:image' content="https:&#x2F;&#x2F;jane-212.github.io&#x2F;processed_images&#x2F;logo.aa6201a051701216.png"/>
+        <meta property='og:image:width' content="1200"/>
+        <meta property='og:image:height' content="627"/>
+        
+        <meta property="og:type" content="article">
+        <meta property="article:published_time" content="2024-03-08">
+        
+        <meta property="article:author" content="https:&#x2F;&#x2F;github.com&#x2F;jane-212">
+        <meta property="article:tags" content="rust"><meta property="article:tags" content="database"><meta property="article:tags" content="surrealdb">
+        
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="https://jane-212.github.io/main.css">
+
+        <!-- Feeds -->
+        
+
+        <!-- Countly -->
+        
+        <script type='text/javascript'>
+        //some default pre init
+        var Countly = Countly || {};
+        Countly.q = Countly.q || [];
+        
+        //provide countly initialization parameters
+        Countly.app_key = '1db43d602c430f0fcc0e9f18d63c38a78c9e5c6b';
+        Countly.url = 'https://jane-7b7e2008baf38.flex.countly.com';
+        
+        Countly.q.push(['track_sessions']);
+        Countly.q.push(['track_pageview']);
+        Countly.q.push(['track_clicks']);
+        Countly.q.push(['track_scrolls']);
+        Countly.q.push(['track_errors']);
+        Countly.q.push(['track_links']);
+        Countly.q.push(['track_forms']);
+        Countly.q.push(['collect_from_forms']);
+        
+        //load countly script asynchronously
+        (function() {
+           var cly = document.createElement('script'); cly.type = 'text/javascript';
+           cly.async = true;
+           //enter url of script here
+           cly.src = 'https://cdnjs.cloudflare.com/ajax/libs/countly-sdk-web/20.4.0/countly.min.js';
+           cly.onload = function(){Countly.init()};
+           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(cly, s);
+        })();
+        </script>
+        
+
+        <script>
+            function setTheme() {
+                const time = new Date();
+      
+                const prev = localStorage.getItem('date');
+                const date = String(time.getMonth() + 1) + '.' + String(time.getDate());
+      
+                const now = time.getTime();
+                let sunrise;
+                let sunset;
+      
+                function setBodyClass() {
+                    if (now > sunrise && now < sunset) return;
+                    document.body.classList.add('dark');
+                }
+      
+                if (date !== prev) {
+                    fetch('https://api.ipgeolocation.io/astronomy?apiKey=5ed37d85103e4defa5df4c5298ed5215')
+                        .then(res => res.json())
+                        .then(data => {
+                            sunrise = data.sunrise.split(':').map(Number);
+                            sunset = data.sunset.split(':').map(Number);
+                    })
+                    .catch(() => {
+                        sunrise = [7, 0];
+                        sunset = [19, 0];
+                    })
+                    .finally(() => {
+                        sunrise = time.setHours(sunrise[0], sunrise[1], 0);
+                        sunset = time.setHours(sunset[0], sunset[1], 0);
+                        setBodyClass();
+                        localStorage.setItem('sunrise', sunrise);
+                        localStorage.setItem('sunset', sunset);
+                    });
+                    localStorage.setItem('date', date);
+                } else {
+                    sunrise = Number(localStorage.getItem('sunrise'));
+                    sunset = Number(localStorage.getItem('sunset'));
+                    setBodyClass();
+                }
+            }
+        </script>
+    </head>
+    
+    <body class="single">
+    
+    <!-- Countly -->
+    
+    <noscript><img src='https://jane-7b7e2008baf38.flex.countly.com/pixel.png?app_key=1db43d602c430f0fcc0e9f18d63c38a78c9e5c6b&begin_session=1'/></noscript>
+    
+        
+    <!-- Apply theme -->
+    <script>
+      setTheme();
+    </script>
+
+    
+        <header class="header">
+            <nav class="nav">
+                
+                <p class="logo"><a href="https://jane-212.github.io">Jane&#x27;s Blog</a></p>
+                
+                <ul class="menu">
+                    
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main">
+            
+<article class="post-single">
+    <header class="post-header">
+        <h1 class="post-title">尝试一下surrealdb</h1>
+        <div class="post-meta">
+            Author: <a class="post-author" href="https://github.com/jane-212">
+                Jane
+            </a>
+            
+            <br/>
+            <span class="post-date">Published: <time>March  8, 2024</time></span>
+            <span>&middot;</span>
+            <span class="post-reading-time">2 min read</span>
+        </div>
+    </header>
+    <div class="post-content"><p>今天上手体验了一下surrealdb，可以很方便在内存，本地和远程切换的数据库</p>
+<span id="continue-reading"></span><h2 id="jie-shao">介绍</h2>
+<p>SurrealDB是一款让未来的开发更轻松，构建更快速，扩展更方便的云数据库。</p>
+<p><img src="/surrealdb/logo.png" alt="surrealdb logo" /></p>
+<h2 id="shi-yong-fang-shi">使用方式</h2>
+<h4 id="jiang-surrealdbtian-jia-dao-xiang-mu-zhong">将surrealdb添加到项目中</h4>
+<p>使用 <code>cargo</code> 添加。</p>
+<pre data-lang="bash" style="background-color:#282828;color:#fdf4c1aa;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="font-style:italic;color:#928374;"># surrealdb
+</span><span style="color:#fdf4c1;">cargo add surrealdb --features kv-rocksdb
+</span><span style="font-style:italic;color:#928374;"># serde derive
+</span><span style="color:#fdf4c1;">cargo add serde --features derive
+</span><span style="font-style:italic;color:#928374;"># tokio runtime
+</span><span style="color:#fdf4c1;">cargo add tokio --features macros,rt-multi-thread
+</span></code></pre>
+<h4 id="lian-jie-shu-ju-ku">连接数据库</h4>
+<p>使用 <code>Mem</code> 来创建一个内存数据库。</p>
+<pre data-lang="rust" style="background-color:#282828;color:#fdf4c1aa;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#fa5c4b;">let</span><span> db </span><span style="color:#fe8019;">= </span><span>Surreal::new::&lt;Mem&gt;(</span><span style="color:#b8bb26;">&quot;./main.db&quot;</span><span>).await</span><span style="color:#fe8019;">?</span><span>;
+</span></code></pre>
+<p>使用 <code>RocksDb</code> 来创建一个基于 <code>RocksDb</code> 本地文件数据库。</p>
+<pre data-lang="rust" style="background-color:#282828;color:#fdf4c1aa;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#fa5c4b;">let</span><span> db </span><span style="color:#fe8019;">= </span><span>Surreal::new::&lt;RocksDb&gt;(</span><span style="color:#b8bb26;">&quot;./main.db&quot;</span><span>).await</span><span style="color:#fe8019;">?</span><span>;
+</span></code></pre>
+<p>我使用的是第二个本地文件数据库。</p>
+<h4 id="tian-jia-shu-ju">添加数据</h4>
+<p>使用 <code>use_ns</code> 方法来切换至 <code>example</code> 命名空间。
+使用 <code>use_db</code> 方法来切换至 <code>test</code> 数据库。</p>
+<pre data-lang="rust" style="background-color:#282828;color:#fdf4c1aa;" class="language-rust "><code class="language-rust" data-lang="rust"><span>db.</span><span style="color:#fabd2f;">use_ns</span><span>(</span><span style="color:#b8bb26;">&quot;example&quot;</span><span>).</span><span style="color:#fabd2f;">use_db</span><span>(</span><span style="color:#b8bb26;">&quot;test&quot;</span><span>).await</span><span style="color:#fe8019;">?</span><span>;
+</span></code></pre>
+<p>创建 <code>Person</code> 和 <code>Name</code> 结构体。</p>
+<pre data-lang="rust" style="background-color:#282828;color:#fdf4c1aa;" class="language-rust "><code class="language-rust" data-lang="rust"><span>#[</span><span style="color:#fdf4c1;">derive</span><span>(Debug, Serialize)]
+</span><span style="color:#fa5c4b;">struct </span><span style="color:#8ec07c;">Name</span><span>&lt;</span><span style="color:#fa5c4b;">&#39;a</span><span>&gt; {
+</span><span>    </span><span style="color:#fdf4c1;">first</span><span>: </span><span style="color:#fe8019;">&amp;</span><span style="color:#fa5c4b;">&#39;a str</span><span>,
+</span><span>    </span><span style="color:#fdf4c1;">last</span><span>: </span><span style="color:#fe8019;">&amp;</span><span style="color:#fa5c4b;">&#39;a str</span><span>,
+</span><span>}
+</span><span>
+</span><span>#[</span><span style="color:#fdf4c1;">derive</span><span>(Debug, Serialize)]
+</span><span style="color:#fa5c4b;">struct </span><span style="color:#8ec07c;">Person</span><span>&lt;</span><span style="color:#fa5c4b;">&#39;a</span><span>&gt; {
+</span><span>    </span><span style="color:#fdf4c1;">title</span><span>: </span><span style="color:#fe8019;">&amp;</span><span style="color:#fa5c4b;">&#39;a str</span><span>,
+</span><span>    </span><span style="color:#fdf4c1;">name</span><span>: Name&lt;</span><span style="color:#fa5c4b;">&#39;a</span><span>&gt;,
+</span><span>    </span><span style="color:#fdf4c1;">marketing</span><span>: </span><span style="color:#fa5c4b;">bool</span><span>,
+</span><span>}
+</span></code></pre>
+<p>在 <code>person</code> 表中添加一条记录。</p>
+<pre data-lang="rust" style="background-color:#282828;color:#fdf4c1aa;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#fa5c4b;">let</span><span> created: </span><span style="color:#fabd2f;">Vec</span><span>&lt;Record&gt; </span><span style="color:#fe8019;">=</span><span> db
+</span><span>    .</span><span style="color:#fabd2f;">create</span><span>(</span><span style="color:#b8bb26;">&quot;person&quot;</span><span>) </span><span style="font-style:italic;color:#928374;">// 参数就是表名
+</span><span>    .</span><span style="color:#fabd2f;">content</span><span>(Person {
+</span><span>        title: </span><span style="color:#b8bb26;">&quot;Founder &amp; CEO&quot;</span><span>,
+</span><span>        name: Name {
+</span><span>            first: </span><span style="color:#b8bb26;">&quot;Tobie&quot;</span><span>,
+</span><span>            last: </span><span style="color:#b8bb26;">&quot;Morgan Hitchcock&quot;</span><span>,
+</span><span>        },
+</span><span>        marketing: </span><span style="color:#d3869b;">true</span><span>,
+</span><span>    }) </span><span style="font-style:italic;color:#928374;">// 参数就是需要插入的数据，如果是结构体的话，该结构体需要实现 `Serialize` Trait
+</span><span>    .await</span><span style="color:#fe8019;">?</span><span>;
+</span><span style="color:#fabd2f;">dbg!</span><span>(created);
+</span></code></pre>
+<p>输出如下，插入成功。</p>
+<pre data-lang="bash" style="background-color:#282828;color:#fdf4c1aa;" class="language-bash "><code class="language-bash" data-lang="bash"><span style="color:#fdf4c1;">[src/main.rs:50:5] created = [
+</span><span>    </span><span style="color:#fdf4c1;">Record {
+</span><span style="color:#fdf4c1;">        id: Thing {
+</span><span style="color:#fdf4c1;">            tb: </span><span style="color:#b8bb26;">&quot;person&quot;</span><span style="color:#fdf4c1;">,
+</span><span style="color:#fdf4c1;">            id: String(
+</span><span style="color:#fdf4c1;">                </span><span style="color:#b8bb26;">&quot;iqieyqh2g9ek2cdwtnwo&quot;</span><span style="color:#fdf4c1;">,
+</span><span style="color:#fdf4c1;">            ),
+</span><span style="color:#fdf4c1;">        },
+</span><span style="color:#fdf4c1;">    },
+</span><span style="color:#fdf4c1;">]
+</span></code></pre>
+</div>
+    <footer class="post-footer">
+        
+        <ul class="post-tags">
+        
+            <li><a href="https://jane-212.github.io/tags/rust/">rust</a></li>
+        
+            <li><a href="https://jane-212.github.io/tags/database/">database</a></li>
+        
+            <li><a href="https://jane-212.github.io/tags/surrealdb/">surrealdb</a></li>
+        
+        </ul>
+        
+    </footer>
+</article>
+
+        </main>
+
+        <footer class="footer">
+            <span>&copy; 2024 <a href="https://jane-212.github.io">Jane&#x27;s Blog</a></span>
+            <span>&middot;</span>
+            <span>Powered by <a href="https://www.getzola.org" rel="noopener" target="_blank">Zola</a>️</span>
+            <span>&middot;</span>
+            <span>Theme️ <a href="https://github.com/schoenenberg/zola-paper" rel="noopener" target="_blank">Zola-Paper</a></span>
+        </footer>
+    
+    </body>
+</html>

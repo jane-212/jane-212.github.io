@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Jane&#x27;s Blog - 常用crate - config</title>
+
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+        <!-- Enable responsiveness on mobile devices-->
+        <!-- viewport-fit=cover is to support iPhone X rounded corners and notch in landscape-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, viewport-fit=cover">
+
+        <!-- Standard meta tags -->
+        <meta name="author" content="Jane">
+        <meta name="description" content="Some rust crates about config">
+
+        <!-- Open Graph Tags -->
+        <meta property="og:site_name" content="Jane&#x27;s Blog">
+        
+        <meta property="og:title" content="常用crate - config">
+        <meta property="og:url" content="https://jane-212.github.io/crate-config">
+        <meta property="og:description" content="Some rust crates about config">
+        
+        
+        <meta property='og:image' content="https:&#x2F;&#x2F;jane-212.github.io&#x2F;processed_images&#x2F;logo.783b0a7064b2b140.png"/>
+        <meta property='og:image:width' content="1200"/>
+        <meta property='og:image:height' content="627"/>
+        
+        <meta property="og:type" content="article">
+        <meta property="article:published_time" content="2024-03-07">
+        
+        <meta property="article:author" content="https:&#x2F;&#x2F;github.com&#x2F;jane-212">
+        <meta property="article:tags" content="rust"><meta property="article:tags" content="config"><meta property="article:tags" content="crate">
+        
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="https://jane-212.github.io/main.css">
+
+        <!-- Feeds -->
+        
+
+        <!-- Countly -->
+        
+        <script type='text/javascript'>
+        //some default pre init
+        var Countly = Countly || {};
+        Countly.q = Countly.q || [];
+        
+        //provide countly initialization parameters
+        Countly.app_key = '1db43d602c430f0fcc0e9f18d63c38a78c9e5c6b';
+        Countly.url = 'https://jane-7b7e2008baf38.flex.countly.com';
+        
+        Countly.q.push(['track_sessions']);
+        Countly.q.push(['track_pageview']);
+        Countly.q.push(['track_clicks']);
+        Countly.q.push(['track_scrolls']);
+        Countly.q.push(['track_errors']);
+        Countly.q.push(['track_links']);
+        Countly.q.push(['track_forms']);
+        Countly.q.push(['collect_from_forms']);
+        
+        //load countly script asynchronously
+        (function() {
+           var cly = document.createElement('script'); cly.type = 'text/javascript';
+           cly.async = true;
+           //enter url of script here
+           cly.src = 'https://cdnjs.cloudflare.com/ajax/libs/countly-sdk-web/20.4.0/countly.min.js';
+           cly.onload = function(){Countly.init()};
+           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(cly, s);
+        })();
+        </script>
+        
+
+        <script>
+            function setTheme() {
+                const time = new Date();
+      
+                const prev = localStorage.getItem('date');
+                const date = String(time.getMonth() + 1) + '.' + String(time.getDate());
+      
+                const now = time.getTime();
+                let sunrise;
+                let sunset;
+      
+                function setBodyClass() {
+                    if (now > sunrise && now < sunset) return;
+                    document.body.classList.add('dark');
+                }
+      
+                if (date !== prev) {
+                    fetch('https://api.ipgeolocation.io/astronomy?apiKey=5ed37d85103e4defa5df4c5298ed5215')
+                        .then(res => res.json())
+                        .then(data => {
+                            sunrise = data.sunrise.split(':').map(Number);
+                            sunset = data.sunset.split(':').map(Number);
+                    })
+                    .catch(() => {
+                        sunrise = [7, 0];
+                        sunset = [19, 0];
+                    })
+                    .finally(() => {
+                        sunrise = time.setHours(sunrise[0], sunrise[1], 0);
+                        sunset = time.setHours(sunset[0], sunset[1], 0);
+                        setBodyClass();
+                        localStorage.setItem('sunrise', sunrise);
+                        localStorage.setItem('sunset', sunset);
+                    });
+                    localStorage.setItem('date', date);
+                } else {
+                    sunrise = Number(localStorage.getItem('sunrise'));
+                    sunset = Number(localStorage.getItem('sunset'));
+                    setBodyClass();
+                }
+            }
+        </script>
+    </head>
+    
+    <body class="single">
+    
+    <!-- Countly -->
+    
+    <noscript><img src='https://jane-7b7e2008baf38.flex.countly.com/pixel.png?app_key=1db43d602c430f0fcc0e9f18d63c38a78c9e5c6b&begin_session=1'/></noscript>
+    
+        
+    <!-- Apply theme -->
+    <script>
+      setTheme();
+    </script>
+
+    
+        <header class="header">
+            <nav class="nav">
+                
+                <p class="logo"><a href="https://jane-212.github.io">Jane&#x27;s Blog</a></p>
+                
+                <ul class="menu">
+                    
+                </ul>
+            </nav>
+        </header>
+
+        <main class="main">
+            
+<article class="post-single">
+    <header class="post-header">
+        <h1 class="post-title">常用crate - config</h1>
+        <div class="post-meta">
+            Author: <a class="post-author" href="https://github.com/jane-212">
+                Jane
+            </a>
+            
+            <br/>
+            <span class="post-date">Published: <time>March  7, 2024</time></span>
+            <span>&middot;</span>
+            <span class="post-reading-time">1 min read</span>
+        </div>
+    </header>
+    <div class="post-content"><p>搜集一些rust开发中常用的crates</p>
+<span id="continue-reading"></span><h2 id="config">Config</h2>
+<h4 id="dotenv">dotenv</h4>
+<p>This library is meant to be used on development or testing environments in which setting environment variables is not practical.</p>
+<pre data-lang="rust" style="background-color:#282828;color:#fdf4c1aa;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#fa5c4b;">extern crate</span><span> dotenv;
+</span><span>
+</span><span style="color:#fa5c4b;">use </span><span>dotenv::dotenv;
+</span><span style="color:#fa5c4b;">use </span><span>std::env;
+</span><span>
+</span><span style="color:#fa5c4b;">fn </span><span style="color:#8ec07c;">main</span><span>() {
+</span><span>    </span><span style="color:#fabd2f;">dotenv</span><span>().</span><span style="color:#fabd2f;">ok</span><span>();
+</span><span>
+</span><span>    </span><span style="color:#fa5c4b;">for </span><span>(key, value) </span><span style="color:#fe8019;">in </span><span>env::vars() {
+</span><span>        </span><span style="color:#fabd2f;">println!</span><span>(</span><span style="color:#b8bb26;">&quot;</span><span style="color:#fdf4c1;">{}</span><span style="color:#b8bb26;">: </span><span style="color:#fdf4c1;">{}</span><span style="color:#b8bb26;">&quot;</span><span>, key, value);
+</span><span>    }
+</span><span>}
+</span></code></pre>
+</div>
+    <footer class="post-footer">
+        
+        <ul class="post-tags">
+        
+            <li><a href="https://jane-212.github.io/tags/rust/">rust</a></li>
+        
+            <li><a href="https://jane-212.github.io/tags/config/">config</a></li>
+        
+            <li><a href="https://jane-212.github.io/tags/crate/">crate</a></li>
+        
+        </ul>
+        
+    </footer>
+</article>
+
+        </main>
+
+        <footer class="footer">
+            <span>&copy; 2024 <a href="https://jane-212.github.io">Jane&#x27;s Blog</a></span>
+            <span>&middot;</span>
+            <span>Powered by <a href="https://www.getzola.org" rel="noopener" target="_blank">Zola</a>️</span>
+            <span>&middot;</span>
+            <span>Theme️ <a href="https://github.com/schoenenberg/zola-paper" rel="noopener" target="_blank">Zola-Paper</a></span>
+        </footer>
+    
+    </body>
+</html>
