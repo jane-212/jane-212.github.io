@@ -263,7 +263,7 @@ fn main() {
 }
 ```
 
-#### rust_embed
+#### rust-embed
 
 Rust Custom Derive Macro which loads files into the rust binary at compile time during release and loads the file from the fs during dev.
 
