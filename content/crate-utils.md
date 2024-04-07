@@ -272,3 +272,7 @@ Rust Custom Derive Macro which loads files into the rust binary at compile time 
 #[folder = "examples/public/"]
 struct Asset;
 ```
+
+#### glam
+
+A simple and fast 3D math library for games and graphics.
