@@ -47,3 +47,5 @@ banner = "/static/crate/logo.png"
 [tokio](https://crates.io/crates/tokio) - A runtime for writing reliable, asynchronous, and slim applications with the Rust programming language.
 
 [async-trait](https://crates.io/crates/async-trait) - The initial round of stabilizations for the async/await language feature in Rust 1.39 did not include support for async fn in traits.
+
+[snafu](https://crates.io/crates/snafu) - SNAFU is a library to easily assign underlying errors into domain-specific errors while adding context.
