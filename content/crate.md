@@ -49,3 +49,9 @@ banner = "/static/crate/logo.png"
 [async-trait](https://crates.io/crates/async-trait) - The initial round of stabilizations for the async/await language feature in Rust 1.39 did not include support for async fn in traits.
 
 [snafu](https://crates.io/crates/snafu) - SNAFU is a library to easily assign underlying errors into domain-specific errors while adding context.
+
+[difference](https://crates.io/crates/difference) - A Rust text diffing library with built-in diffing assertion.
+
+[diff](https://crates.io/crates/diff) - An LCS based slice and string diffing implementation.
+
+[mlua](https://crates.io/crates/mlua) - mlua is bindings to Lua programming language for Rust with a goal to provide safe (as far as it's possible), high level, easy to use, practical and flexible API.
