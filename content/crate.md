@@ -55,3 +55,5 @@ banner = "/static/crate/logo.png"
 [diff](https://crates.io/crates/diff) - An LCS based slice and string diffing implementation.
 
 [mlua](https://crates.io/crates/mlua) - mlua is bindings to Lua programming language for Rust with a goal to provide safe (as far as it's possible), high level, easy to use, practical and flexible API.
+
+[cross](https://crates.io/crates/cross) - “Zero setup” cross compilation and “cross testing” of Rust crates.
