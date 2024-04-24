@@ -2,6 +2,8 @@ base_url = "https://jane-212.github.io"
 title = "Jane's Blog"
 theme = "paper"
 
+generate_feed = true
+
 taxonomies = [{ name = "tags", paginate_by = 5 }]
 
 [markdown]
