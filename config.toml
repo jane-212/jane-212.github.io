@@ -3,7 +3,7 @@ title = "Jane's Blog"
 theme = "paper"
 
 generate_feed = true
-feed_filename = "rss.xml"
+feed_filename = "rss"
 
 taxonomies = [{ name = "tags", paginate_by = 5 }]
 
