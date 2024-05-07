@@ -9,7 +9,11 @@ taxonomies = [{ name = "tags", feed = true }]
 
 [markdown]
 highlight_code = true
-highlight_theme = "gruvbox-dark"
+highlight_theme = "css"
+highlight_themes_css = [
+    { theme = "Catppuccin Frappe", filename = "syntax-theme-dark.css" },
+    { theme = "Catppuccin Latte", filename = "syntax-theme-light.css" },
+]
 
 [extra]
 author = "Jane"

@@ -1,49 +1,42 @@
-const toggleButton = document.getElementById('theme-toggle');
-const themeIcon = document.getElementById('theme-icon');
-const themeSound = document.getElementById('theme-sound');
-
-// Function to update the theme icon based on the current theme
-const updateThemeIcon = (isDarkMode) => {
-    const themeMode = isDarkMode ? 'darkMode' : 'lightMode';
-    const iconPath = themeIcon.querySelector('use').getAttribute('href').replace(/#.*$/, `#${themeMode}`);
-    themeIcon.querySelector('use').setAttribute('href', iconPath);
-};
-
-// Function to update the theme based on the current mode
 const updateTheme = (isDarkMode) => {
-    const theme = isDarkMode ? 'dark' : 'light';
-    document.documentElement.setAttribute('data-theme', theme);
-    updateThemeIcon(isDarkMode);
+  const theme = isDarkMode ? "dark" : "light";
+  document.documentElement.setAttribute("data-theme", theme);
+  update_highlight(isDarkMode);
 };
 
-// Function to toggle the theme
+const update_highlight = (isDarkMode) => {
+  let cssId = "highlight_css";
+  const css = document.getElementById(cssId);
+  if (css) css.remove();
+
+  const theme_css = isDarkMode
+    ? "/syntax-theme-dark.css"
+    : "/syntax-theme-light.css";
+  let head = document.getElementsByTagName("head")[0];
+  let link = document.createElement("link");
+  link.id = cssId;
+  link.rel = "stylesheet";
+  link.type = "text/css";
+  link.href = theme_css;
+  head.appendChild(link);
+};
+
 const toggleTheme = () => {
-    const isDarkMode = toggleButton.checked;
-    updateTheme(isDarkMode);
-    themeSound.play();
-    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+  initializeTheme();
 
-    // Add transition class to body for smooth transition
-    document.body.classList.add('theme-transition');
-    setTimeout(() => {
-        document.body.classList.remove('theme-transition');
-    }, 300);
+  document.body.classList.add("theme-transition");
+  setTimeout(() => {
+    document.body.classList.remove("theme-transition");
+  }, 300);
 };
 
-// Event listener for theme toggle
-toggleButton.addEventListener('change', toggleTheme);
-
-// Function to initialize the theme based on the stored preference
 const initializeTheme = () => {
-    const storedTheme = localStorage.getItem('theme');
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const isDarkMode = storedTheme === 'dark' || (!storedTheme && prefersDark);
-    toggleButton.checked = isDarkMode;
-    updateTheme(isDarkMode);
+  const isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  updateTheme(isDarkMode);
 };
 
-// Initialize the theme
 initializeTheme();
 
-// Listen for changes in system preference
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', initializeTheme);
+window
+  .matchMedia("(prefers-color-scheme: dark)")
+  .addEventListener("change", toggleTheme);
