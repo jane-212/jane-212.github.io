@@ -1,11 +1,11 @@
 base_url = "https://jane-212.github.io"
 title = "Jane's Blog"
-theme = "paper"
+theme = "anemone"
 
 generate_feed = true
 feed_filename = "rss.xml"
 
-taxonomies = [{ name = "tags", paginate_by = 5 }]
+taxonomies = [{ name = "tags", feed = true }]
 
 [markdown]
 highlight_code = true
@@ -13,5 +13,17 @@ highlight_theme = "gruvbox-dark"
 
 [extra]
 author = "Jane"
-author_url = "https://github.com/jane-212"
-countly = { enabled = true, key = "1db43d602c430f0fcc0e9f18d63c38a78c9e5c6b" }
+display_author = true
+
+favicon = "favicon.ico"
+
+default_theme = "light"
+list_pages = true
+twitter_card = true
+toc = true
+
+header_nav = [
+    { url = "/", name_en = "/home/" },
+    { url = "/blog", name_en = "/blog/" },
+    { url = "/about", name_en = "/about/" },
+]

@@ -1,4 +1,8 @@
 +++
-sort_by = "date"
-paginate_by = 5
 +++
+
+# Jane's Blog
+
+[Blog](/blog)
+
+[About](/about)
