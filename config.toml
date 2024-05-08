@@ -1,7 +1,9 @@
 base_url = "https://jane-212.github.io"
 title = "Jane's Blog"
+description = "This is Jane's Blog, share about coding and daily"
 theme = "anemone"
 
+minify_html = true
 generate_feed = true
 feed_filename = "rss.xml"
 
