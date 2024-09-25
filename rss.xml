@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Jane&#x27;s Blog</title>
+      <link>/</link>
+      <description>This is Jane&#x27;s Blog, share about coding and daily</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Tue, 23 Apr 2024 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>当使用cross.rs来跨平台编译时遇到的问题</title>
+          <pubDate>Tue, 23 Apr 2024 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>/blog/cross/</link>
+          <guid>/blog/cross/</guid>
+          <description xml:base="/blog/cross/">&lt;p&gt;当使用cross.rs来跨平台编译时遇到的问题&lt;&#x2F;p&gt;
+&lt;p&gt;在使用cross编译时，如果在项目中有如下代码。&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;rust&quot; class=&quot;language-rust z-code&quot;&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;z-source z-rust&quot;&gt;&lt;span class=&quot;z-support z-macro z-rust&quot;&gt;env!&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-begin z-rust&quot;&gt;(&lt;&#x2F;span&gt;&lt;span class=&quot;z-string z-quoted z-double z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;FOO&lt;span class=&quot;z-punctuation z-definition z-string z-end z-rust&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-group z-rust&quot;&gt;&lt;span class=&quot;z-punctuation z-section z-group z-end z-rust&quot;&gt;)&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-terminator z-rust&quot;&gt;;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;该代码会在编译时寻找名为 &lt;code&gt;FOO&lt;&#x2F;code&gt; 的环境变量，但是cross是在docker中编译的，并不会将环境变量传递到docker中，如果想要指定传递的环境变量，可以在项目的根目录中创建 &lt;code&gt;Cross.toml&lt;&#x2F;code&gt; 文件。&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;toml&quot; class=&quot;language-toml z-code&quot;&gt;&lt;code class=&quot;language-toml&quot; data-lang=&quot;toml&quot;&gt;&lt;span class=&quot;z-source z-toml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-table z-begin z-toml&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-tag z-table z-toml&quot;&gt;&lt;span class=&quot;z-entity z-name z-table z-toml&quot;&gt;build&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-separator z-table z-toml&quot;&gt;.&lt;&#x2F;span&gt;&lt;span class=&quot;z-entity z-name z-table z-toml&quot;&gt;env&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-table z-end z-toml&quot;&gt;]&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-toml&quot;&gt;&lt;span class=&quot;z-meta z-tag z-key z-toml&quot;&gt;&lt;span class=&quot;z-entity z-name z-tag z-toml&quot;&gt;passthrough&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-punctuation z-definition z-key-value z-toml&quot;&gt;=&lt;&#x2F;span&gt; &lt;span class=&quot;z-punctuation z-definition z-array z-begin z-toml&quot;&gt;[&lt;&#x2F;span&gt;&lt;span class=&quot;z-string z-quoted z-double z-basic z-toml&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;FOO&lt;span class=&quot;z-punctuation z-definition z-string z-end z-toml&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-punctuation z-definition z-array z-end z-toml&quot;&gt;]&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;这样配置后，cross就会在编译时将 &lt;code&gt;FOO&lt;&#x2F;code&gt; 变量传递到docker中。&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>常用crate</title>
+          <pubDate>Thu, 07 Mar 2024 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>/blog/crate/</link>
+          <guid>/blog/crate/</guid>
+          <description xml:base="/blog/crate/">&lt;p&gt;搜集一些rust开发中常用的crates&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;actix-web&quot;&gt;actix-web&lt;&#x2F;a&gt; - Actix Web is a powerful, pragmatic, and extremely fast web framework for Rust.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;serde&quot;&gt;serde&lt;&#x2F;a&gt; - Serde is a framework for serializing and deserializing Rust data structures efficiently and generically.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;tera&quot;&gt;tera&lt;&#x2F;a&gt; - Tera is a template engine inspired by Jinja2 and the Django template language.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;validator&quot;&gt;validator&lt;&#x2F;a&gt; - Macros 1.1 custom derive to simplify struct validation inspired by marshmallow and Django validators.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;lettre&quot;&gt;lettre&lt;&#x2F;a&gt; - A mailer library for Rust.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;diesel&quot;&gt;diesel&lt;&#x2F;a&gt; - A safe, extensible ORM and Query Builder for Rust.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;reqwest&quot;&gt;reqwest&lt;&#x2F;a&gt; - An ergonomic, batteries-included HTTP Client for Rust.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;chrono&quot;&gt;chrono&lt;&#x2F;a&gt; - Chrono aims to provide all functionality needed to do correct operations on dates and times.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;rust-embed&quot;&gt;rust-embed&lt;&#x2F;a&gt; - Rust Custom Derive Macro which loads files into the rust binary at compile time during release and loads the file from the fs during dev.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;tracing&quot;&gt;tracing&lt;&#x2F;a&gt; - Application-level tracing for Rust.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;thiserror&quot;&gt;thiserror&lt;&#x2F;a&gt; - This library provides a convenient derive macro for the standard library&#x27;s &lt;code&gt;std::error::Error&lt;&#x2F;code&gt; trait.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;anyhow&quot;&gt;anyhow&lt;&#x2F;a&gt; - This library provides &lt;code&gt;anyhow::Error&lt;&#x2F;code&gt;, a trait object based error type for easy idiomatic error handling in Rust applications.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;dotenv&quot;&gt;dotenv&lt;&#x2F;a&gt; - This library is meant to be used on development or testing environments in which setting environment variables is not practical.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;clap&quot;&gt;clap&lt;&#x2F;a&gt; - Create your command-line parser, with all of the bells and whistles, declaratively or procedurally.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;indicatif&quot;&gt;indicatif&lt;&#x2F;a&gt; - A Rust library for indicating progress in command line applications to users.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;tokio&quot;&gt;tokio&lt;&#x2F;a&gt; - A runtime for writing reliable, asynchronous, and slim applications with the Rust programming language.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;async-trait&quot;&gt;async-trait&lt;&#x2F;a&gt; - The initial round of stabilizations for the async&#x2F;await language feature in Rust 1.39 did not include support for async fn in traits.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;snafu&quot;&gt;snafu&lt;&#x2F;a&gt; - SNAFU is a library to easily assign underlying errors into domain-specific errors while adding context.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;difference&quot;&gt;difference&lt;&#x2F;a&gt; - A Rust text diffing library with built-in diffing assertion.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;diff&quot;&gt;diff&lt;&#x2F;a&gt; - An LCS based slice and string diffing implementation.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;mlua&quot;&gt;mlua&lt;&#x2F;a&gt; - mlua is bindings to Lua programming language for Rust with a goal to provide safe (as far as it&#x27;s possible), high level, easy to use, practical and flexible API.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;cross&quot;&gt;cross&lt;&#x2F;a&gt; - “Zero setup” cross compilation and “cross testing” of Rust crates.&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>一些有趣的电影</title>
+          <pubDate>Mon, 28 Nov 2022 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>/blog/movie/</link>
+          <guid>/blog/movie/</guid>
+          <description xml:base="/blog/movie/">&lt;p&gt;记录一些有意思的电影&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;ji-qi-ren-zong-dong-yuan&quot;&gt;机器人总动员&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;movie&#x2F;walle.jpg&quot; alt=&quot;WALLE&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;zhi-you-ni&quot;&gt;只有你&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;movie&#x2F;only-you.jpg&quot; alt=&quot;Only You&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;zhong-quan-ba-gong-de-gu-shi&quot;&gt;忠犬八公的故事&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;movie&#x2F;hachi.jpg&quot; alt=&quot;Hachi: A Dog&#x27;s Tale&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;mi-mi&quot;&gt;秘密&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;movie&#x2F;secret.jpg&quot; alt=&quot;Secret&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;qing-shu&quot;&gt;情书&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;movie&#x2F;love-letter.jpg&quot; alt=&quot;Love Letter&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;wo-shi-shui-mei-you-jue-dui-an-quan-de-xi-tong&quot;&gt;我是谁：没有绝对安全的系统&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;movie&#x2F;who-am-i.jpg&quot; alt=&quot;Who Am I-No System Is Safe&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;chu-lian-zhe-jian-xiao-shi&quot;&gt;初恋这件小事&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;movie&#x2F;first-love.jpg&quot; alt=&quot;First Love&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+</description>
+      </item>
+      <item>
+          <title>一些有趣的电视剧</title>
+          <pubDate>Mon, 28 Nov 2022 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>/blog/tv/</link>
+          <guid>/blog/tv/</guid>
+          <description xml:base="/blog/tv/">&lt;p&gt;记录一些有意思的电视剧&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;bai-tuo-xiao-jie&quot;&gt;拜托小姐&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;tv&#x2F;lady-castle.jpg&quot; alt=&quot;Lady Castle&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+</description>
+      </item>
+    </channel>
+</rss>
