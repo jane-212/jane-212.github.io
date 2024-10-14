@@ -1,6 +1,6 @@
 base_url = "/"
 title = "Jane's Blog"
-description = "This is Jane's Blog, share about coding and daily.feedId:68491224498060288+userId:68474565916940288"
+description = "This is Jane's Blog, share about coding and daily."
 theme = "anemone"
 
 minify_html = true
