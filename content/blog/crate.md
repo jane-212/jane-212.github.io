@@ -1,6 +1,6 @@
 +++
 title = "常用crate"
-date = 2024-03-07
+date = 2024-10-16
 
 [taxonomies]
 tags = ["rust", "crate"]
@@ -32,7 +32,7 @@ tags = ["rust", "crate"]
 
 [anyhow](https://crates.io/crates/anyhow) - This library provides `anyhow::Error`, a trait object based error type for easy idiomatic error handling in Rust applications.
 
-[dotenv](https://crates.io/crates/dotenv) - This library is meant to be used on development or testing environments in which setting environment variables is not practical.
+[dotenvy](https://crates.io/crates/dotenvy) - A well-maintained fork of the [dotenv](https://crates.io/crates/dotenv) crate.
 
 [clap](https://crates.io/crates/clap) - Create your command-line parser, with all of the bells and whistles, declaratively or procedurally.
 
