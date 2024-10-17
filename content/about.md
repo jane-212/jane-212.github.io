@@ -2,4 +2,4 @@
 title = "About"
 +++
 
-👋 Hello There!
+👋 Hi There!
