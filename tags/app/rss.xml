@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Jane&#x27;s Blog - app</title>
+      <link>/</link>
+      <description>This is Jane&#x27;s Blog, share about coding and daily.</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="/tags/app/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Wed, 16 Oct 2024 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>记录一些自己常用的web和app</title>
+          <pubDate>Wed, 16 Oct 2024 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>/blog/useful-web-and-apps/</link>
+          <guid>/blog/useful-web-and-apps/</guid>
+          <description xml:base="/blog/useful-web-and-apps/">&lt;h2 id=&quot;jina-ai&quot;&gt;&lt;a href=&quot;https:&#x2F;&#x2F;jina.ai&quot;&gt;jina.ai&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;用来精简网页内容和在网页中搜索关键字的AI。&lt;&#x2F;p&gt;
+&lt;p&gt;示例请求&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;curl&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &lt;span class=&quot;z-string z-quoted z-single z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-shell&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;https:&#x2F;&#x2F;r.jina.ai&#x2F;https:&#x2F;&#x2F;example.com&lt;span class=&quot;z-punctuation z-definition z-string z-end z-shell&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-punctuation z-separator z-continuation z-line z-shell&quot;&gt;\
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt;	-&lt;&#x2F;span&gt;H&lt;&#x2F;span&gt; &lt;span class=&quot;z-string z-quoted z-double z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;Authorization: Bearer jina_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx&lt;span class=&quot;z-punctuation z-definition z-string z-end z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;相应&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;Title: Example Domain
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;URL Source: https:&#x2F;&#x2F;example.com&#x2F;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;Markdown Content:
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission.
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;[More information...](https:&#x2F;&#x2F;www.iana.org&#x2F;domains&#x2F;example)
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+</description>
+      </item>
+    </channel>
+</rss>

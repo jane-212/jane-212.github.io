@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Jane&#x27;s Blog - crate</title>
+      <link>/</link>
+      <description>This is Jane&#x27;s Blog, share about coding and daily.</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="/tags/crate/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Wed, 16 Oct 2024 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>常用crate</title>
+          <pubDate>Wed, 16 Oct 2024 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>/blog/crate/</link>
+          <guid>/blog/crate/</guid>
+          <description xml:base="/blog/crate/">&lt;p&gt;搜集一些rust开发中常用的crates&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;actix-web&quot;&gt;actix-web&lt;&#x2F;a&gt; - Actix Web is a powerful, pragmatic, and extremely fast web framework for Rust.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;serde&quot;&gt;serde&lt;&#x2F;a&gt; - Serde is a framework for serializing and deserializing Rust data structures efficiently and generically.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;tera&quot;&gt;tera&lt;&#x2F;a&gt; - Tera is a template engine inspired by Jinja2 and the Django template language.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;validator&quot;&gt;validator&lt;&#x2F;a&gt; - Macros 1.1 custom derive to simplify struct validation inspired by marshmallow and Django validators.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;lettre&quot;&gt;lettre&lt;&#x2F;a&gt; - A mailer library for Rust.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;diesel&quot;&gt;diesel&lt;&#x2F;a&gt; - A safe, extensible ORM and Query Builder for Rust.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;reqwest&quot;&gt;reqwest&lt;&#x2F;a&gt; - An ergonomic, batteries-included HTTP Client for Rust.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;chrono&quot;&gt;chrono&lt;&#x2F;a&gt; - Chrono aims to provide all functionality needed to do correct operations on dates and times.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;rust-embed&quot;&gt;rust-embed&lt;&#x2F;a&gt; - Rust Custom Derive Macro which loads files into the rust binary at compile time during release and loads the file from the fs during dev.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;tracing&quot;&gt;tracing&lt;&#x2F;a&gt; - Application-level tracing for Rust.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;thiserror&quot;&gt;thiserror&lt;&#x2F;a&gt; - This library provides a convenient derive macro for the standard library&#x27;s &lt;code&gt;std::error::Error&lt;&#x2F;code&gt; trait.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;anyhow&quot;&gt;anyhow&lt;&#x2F;a&gt; - This library provides &lt;code&gt;anyhow::Error&lt;&#x2F;code&gt;, a trait object based error type for easy idiomatic error handling in Rust applications.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;dotenvy&quot;&gt;dotenvy&lt;&#x2F;a&gt; - A well-maintained fork of the &lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;dotenv&quot;&gt;dotenv&lt;&#x2F;a&gt; crate.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;clap&quot;&gt;clap&lt;&#x2F;a&gt; - Create your command-line parser, with all of the bells and whistles, declaratively or procedurally.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;indicatif&quot;&gt;indicatif&lt;&#x2F;a&gt; - A Rust library for indicating progress in command line applications to users.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;tokio&quot;&gt;tokio&lt;&#x2F;a&gt; - A runtime for writing reliable, asynchronous, and slim applications with the Rust programming language.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;async-trait&quot;&gt;async-trait&lt;&#x2F;a&gt; - The initial round of stabilizations for the async&#x2F;await language feature in Rust 1.39 did not include support for async fn in traits.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;snafu&quot;&gt;snafu&lt;&#x2F;a&gt; - SNAFU is a library to easily assign underlying errors into domain-specific errors while adding context.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;difference&quot;&gt;difference&lt;&#x2F;a&gt; - A Rust text diffing library with built-in diffing assertion.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;diff&quot;&gt;diff&lt;&#x2F;a&gt; - An LCS based slice and string diffing implementation.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;mlua&quot;&gt;mlua&lt;&#x2F;a&gt; - mlua is bindings to Lua programming language for Rust with a goal to provide safe (as far as it&#x27;s possible), high level, easy to use, practical and flexible API.&lt;&#x2F;p&gt;
+&lt;p&gt;&lt;a href=&quot;https:&#x2F;&#x2F;crates.io&#x2F;crates&#x2F;cross&quot;&gt;cross&lt;&#x2F;a&gt; - “Zero setup” cross compilation and “cross testing” of Rust crates.&lt;&#x2F;p&gt;
+</description>
+      </item>
+    </channel>
+</rss>
