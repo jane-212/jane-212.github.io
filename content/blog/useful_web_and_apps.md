@@ -10,6 +10,8 @@ tags = ["web", "app", "ai"]
 
 用来精简网页内容和在网页中搜索关键字的AI。
 
+{{ bilibili(id="BV12t421j74m") }}
+
 示例请求
 ```bash
 curl 'https://r.jina.ai/https://example.com' \
@@ -31,3 +33,5 @@ This domain is for use in illustrative examples in documents. You may use this d
 ## [umami](https://umami.is)
 
 收集和分析网站数据。
+
+{{ bilibili(id="BV1t34y1k7De") }}
