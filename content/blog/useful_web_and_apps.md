@@ -18,7 +18,7 @@ curl 'https://r.jina.ai/https://example.com' \
 	-H "Authorization: Bearer jina_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 ```
 
-相应
+响应
 ```
 Title: Example Domain
 

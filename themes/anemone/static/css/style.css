@@ -113,3 +113,16 @@
     border-radius: var(--standard-border-radius);
     border: 1px solid var(--accent);
 }
+
+pre {
+    white-space: pre;
+    max-height: none;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: var(--standard-border-radius);
+}
+
+::-webkit-scrollbar-track {
+    border-radius: var(--standard-border-radius);
+}
