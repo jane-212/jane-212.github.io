@@ -119,6 +119,10 @@ pre {
     max-height: none;
 }
 
+::-webkit-scrollbar {
+    height: var(--standard-border-radius);
+}
+
 ::-webkit-scrollbar-thumb {
     border-radius: var(--standard-border-radius);
 }
