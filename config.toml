@@ -5,7 +5,7 @@ theme = "anemone"
 
 minify_html = true
 generate_feeds = true
-feed_filenames = ["rss.xml"]
+feed_filenames = ["rss.xml", "atom.xml"]
 
 taxonomies = [{ name = "tags", feed = true }]
 
