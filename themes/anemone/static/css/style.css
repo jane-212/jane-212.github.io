@@ -106,12 +106,12 @@
 }
 
 .video {
-    width: 100%;
+    width: 90%;
     height: auto;
-    max-width: 100%;
     aspect-ratio: 16 / 9;
-    border-radius: var(--standard-border-radius);
-    border: 1px solid var(--accent);
+    border-radius: 15px;
+    border: dashed 2px var(--accent);
+    padding: .125rem;
 }
 
 pre {
@@ -124,5 +124,5 @@ pre {
 }
 
 ::-webkit-scrollbar-track {
-    border-radius: var(--standard-border-radius);
+    background: transparent;
 }
