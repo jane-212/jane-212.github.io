@@ -130,3 +130,7 @@ pre {
 ::-webkit-scrollbar-track {
     background: transparent;
 }
+
+.giscus-frame {
+    max-width: none;
+}
