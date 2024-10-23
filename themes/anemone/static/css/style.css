@@ -106,12 +106,17 @@
 }
 
 .video {
-    width: 90%;
+    width: 100%;
     height: auto;
+    max-width: 100%;
     aspect-ratio: 16 / 9;
     border-radius: 15px;
     border: dashed 2px var(--accent);
     padding: .125rem;
+}
+
+img {
+    max-width: 100%;
 }
 
 pre {
