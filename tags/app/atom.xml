@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Jane&#x27;s Blog - app</title>
+    <subtitle>This is Jane&#x27;s Blog, share about coding and daily.</subtitle>
+    <link rel="self" type="application/atom+xml" href="/tags/app/atom.xml"/>
+    <link rel="alternate" type="text/html" href="/"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2024-10-16T00:00:00+00:00</updated>
+    <id>/tags/app/atom.xml</id>
+    <entry xml:lang="en">
+        <title>记录一些自己常用的web和app</title>
+        <published>2024-10-16T00:00:00+00:00</published>
+        <updated>2024-10-16T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="/blog/useful-web-and-apps/"/>
+        <id>/blog/useful-web-and-apps/</id>
+        
+        <content type="html" xml:base="/blog/useful-web-and-apps/">&lt;h2 id=&quot;jina-ai&quot;&gt;&lt;a href=&quot;https:&#x2F;&#x2F;jina.ai&quot;&gt;jina.ai&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;用来精简网页内容和在网页中搜索关键字的AI。&lt;&#x2F;p&gt;
+&lt;div&gt;
+    &lt;iframe
+        class=&quot;video&quot;
+        src=&quot;&#x2F;&#x2F;player.bilibili.com&#x2F;player.html?isOutside=true&amp;bvid=BV12t421j74m&amp;autoplay=0&quot;
+        allow=&quot;accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot;
+        webkitallowfullscreen
+        mozallowfullscreen
+        allowfullscreen&gt;
+    &lt;&#x2F;iframe&gt;
+&lt;&#x2F;div&gt;
+&lt;p&gt;示例请求&lt;&#x2F;p&gt;
+&lt;pre data-lang=&quot;bash&quot; class=&quot;language-bash z-code&quot;&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-shell&quot;&gt;&lt;span class=&quot;z-variable z-function z-shell&quot;&gt;curl&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt; &lt;span class=&quot;z-string z-quoted z-single z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-shell&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;https:&#x2F;&#x2F;r.jina.ai&#x2F;https:&#x2F;&#x2F;example.com&lt;span class=&quot;z-punctuation z-definition z-string z-end z-shell&quot;&gt;&amp;#39;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt; &lt;span class=&quot;z-punctuation z-separator z-continuation z-line z-shell&quot;&gt;\
+&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;span class=&quot;z-source z-shell z-bash&quot;&gt;&lt;span class=&quot;z-meta z-function-call z-arguments z-shell&quot;&gt;&lt;span class=&quot;z-variable z-parameter z-option z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-parameter z-shell&quot;&gt;	-&lt;&#x2F;span&gt;H&lt;&#x2F;span&gt; &lt;span class=&quot;z-string z-quoted z-double z-shell&quot;&gt;&lt;span class=&quot;z-punctuation z-definition z-string z-begin z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;Authorization: Bearer jina_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx&lt;span class=&quot;z-punctuation z-definition z-string z-end z-shell&quot;&gt;&amp;quot;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;&lt;&#x2F;span&gt;
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;p&gt;响应&lt;&#x2F;p&gt;
+&lt;pre class=&quot;z-code&quot;&gt;&lt;code&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;Title: Example Domain
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;URL Source: https:&#x2F;&#x2F;example.com&#x2F;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;Markdown Content:
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;This domain is for use in illustrative examples in documents. You may use this domain in literature without prior coordination or asking for permission.
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;
+&lt;&#x2F;span&gt;&lt;span class=&quot;z-text z-plain&quot;&gt;[More information...](https:&#x2F;&#x2F;www.iana.org&#x2F;domains&#x2F;example)
+&lt;&#x2F;span&gt;&lt;&#x2F;code&gt;&lt;&#x2F;pre&gt;
+&lt;h2 id=&quot;umami&quot;&gt;&lt;a href=&quot;https:&#x2F;&#x2F;umami.is&quot;&gt;umami&lt;&#x2F;a&gt;&lt;&#x2F;h2&gt;
+&lt;p&gt;收集和分析网站数据。&lt;&#x2F;p&gt;
+&lt;div&gt;
+    &lt;iframe
+        class=&quot;video&quot;
+        src=&quot;&#x2F;&#x2F;player.bilibili.com&#x2F;player.html?isOutside=true&amp;bvid=BV1t34y1k7De&amp;autoplay=0&quot;
+        allow=&quot;accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share&quot;
+        webkitallowfullscreen
+        mozallowfullscreen
+        allowfullscreen&gt;
+    &lt;&#x2F;iframe&gt;
+&lt;&#x2F;div&gt;
+</content>
+        
+    </entry>
+</feed>
