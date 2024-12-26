@@ -3,12 +3,8 @@
 
 # Jane's Blog
 
-## [头像](https://xvaxk35mfahcnu7fljpfghgktjg6rudszvti6bwq6xvky2666l3q.arweave.net/vUF1b6woDibT5VpeUxzKmk3o0HLNZo8G0PXqrGve8vc)
+## [头像](https://viewblock.io/arweave/tx/vUF1b6woDibT5VpeUxzKmk3o0HLNZo8G0PXqrGve8vc)
 
-![avatar](https://xvaxk35mfahcnu7fljpfghgktjg6rudszvti6bwq6xvky2666l3q.arweave.net/vUF1b6woDibT5VpeUxzKmk3o0HLNZo8G0PXqrGve8vc)
+## [狗头头像](https://viewblock.io/arweave/tx/kcL_vCpHusfNzqDblnbI6za08E39Ocy8Sl7NX8hk3FI)
 
-## [helix配置文件](https://arweave.net/MIdJeL4OOse6jmzgYkmL0WndOWRrgo1vkR4-ou0IkGc)
-
-```
-https://arweave.net/MIdJeL4OOse6jmzgYkmL0WndOWRrgo1vkR4-ou0IkGc
-```
+## [helix配置文件](https://viewblock.io/arweave/tx/xgmR9B_exoeqFG-wYXriC0Yer0um99aElG6fgVriAjg)
