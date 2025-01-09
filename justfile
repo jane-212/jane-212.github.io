@@ -1,8 +1,7 @@
-# print this help message
-default:
-    just --list
+_default:
+    @just --list
 
-# stash changes and push to main
+# commit changes and push to main
 push:
     git add .
     git commit
