@@ -6,7 +6,7 @@
 ## Helix配置文件
 
 ```toml
-theme = "catppuccin_mocha"
+theme = "gruvbox_dark_soft"
 
 [editor]
 line-number = "relative"
