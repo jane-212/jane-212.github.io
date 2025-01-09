@@ -12,9 +12,10 @@ taxonomies = [{ name = "tags", feed = true }]
 [markdown]
 highlight_code = true
 highlight_theme = "css"
+extra_syntaxes_and_themes = ["highlight_themes"]
 highlight_themes_css = [
-    { theme = "one-dark", filename = "syntax-theme-light.css" },
-    { theme = "one-dark", filename = "syntax-theme-dark.css" },
+    { theme = "Catppuccin Frappe", filename = "syntax-theme-light.css" },
+    { theme = "Catppuccin Mocha", filename = "syntax-theme-dark.css" },
 ]
 
 [extra]
