@@ -90,8 +90,8 @@
 {% endblock feed %}
 {% endif %}
 {% block css %}
-<link rel="stylesheet" type="text/css" href="https://speyll.github.io/suCSS/reset-min.css"/>
-<link rel="stylesheet" type="text/css" href="https://speyll.github.io/suCSS/suCSS-min.css"/>
+<link rel="stylesheet" type="text/css" href="{{ get_url(path='css/reset-min.css', trailing_slash=false) | safe }}"/>
+<link rel="stylesheet" type="text/css" href="{{ get_url(path='css/suCss-min.css', trailing_slash=false) | safe }}"/>
 <link rel="stylesheet" type="text/css" href="{{ get_url(path='css/style.css', trailing_slash=false) | safe }}"/>
 {% endblock css %}
 {% block rss %}
