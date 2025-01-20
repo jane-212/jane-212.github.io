@@ -6,11 +6,26 @@
 ## Helix配置文件
 
 ```toml
-theme = "gruvbox_dark_soft"
+theme = "gruvbox"
 
 [editor]
 line-number = "relative"
 cursorline = true
+completion-timeout = 5
+completion-trigger-len = 1
+auto-format = false
+end-of-line-diagnostics = "hint"
+
+[editor.statusline]
+left = ["spacer", "version-control"]
+center = ["mode"]
+right = ["diagnostics", "position", "file-type"]
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+
+[editor.lsp]
+display-messages = true
 
 [editor.auto-save.after-delay]
 enable = true
