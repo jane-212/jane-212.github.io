@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Jane&#x27;s Blog - 电影</title>
+      <link>/</link>
+      <description>This is Jane&#x27;s Blog, share about coding and daily.</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="/tags/dian-ying/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Mon, 28 Nov 2022 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>一些有趣的电影</title>
+          <pubDate>Mon, 28 Nov 2022 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>/blog/movie/</link>
+          <guid>/blog/movie/</guid>
+          <description xml:base="/blog/movie/">&lt;p&gt;记录一些有意思的电影&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;ji-qi-ren-zong-dong-yuan&quot;&gt;机器人总动员&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;movie&#x2F;walle.jpg&quot; alt=&quot;WALLE&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;zhi-you-ni&quot;&gt;只有你&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;movie&#x2F;only-you.jpg&quot; alt=&quot;Only You&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;zhong-quan-ba-gong-de-gu-shi&quot;&gt;忠犬八公的故事&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;movie&#x2F;hachi.jpg&quot; alt=&quot;Hachi: A Dog&amp;#39;s Tale&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;mi-mi&quot;&gt;秘密&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;movie&#x2F;secret.jpg&quot; alt=&quot;Secret&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;qing-shu&quot;&gt;情书&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;movie&#x2F;love-letter.jpg&quot; alt=&quot;Love Letter&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;wo-shi-shui-mei-you-jue-dui-an-quan-de-xi-tong&quot;&gt;我是谁：没有绝对安全的系统&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;movie&#x2F;who-am-i.jpg&quot; alt=&quot;Who Am I-No System Is Safe&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;chu-lian-zhe-jian-xiao-shi&quot;&gt;初恋这件小事&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;movie&#x2F;first-love.jpg&quot; alt=&quot;First Love&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+</description>
+      </item>
+    </channel>
+</rss>
