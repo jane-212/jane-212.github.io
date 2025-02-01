@@ -46,3 +46,14 @@ render = true
 Docker: [OrbStack](https://orbstack.dev)
 
 编辑器: [Zed](https://zed.dev)
+
+## `git` 无法 `clone` 和 `push` 的问题
+
+> ~/.ssh/config
+
+```
+Host github.com
+    Hostname ssh.github.com
+    Port 443
+    User git
+```
