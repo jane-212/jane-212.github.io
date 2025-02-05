@@ -6,14 +6,13 @@
 ## Helix配置文件
 
 ```toml
-theme = "gruvbox"
+theme = "nord"
 
 [editor]
 line-number = "relative"
 cursorline = true
 completion-timeout = 5
 completion-trigger-len = 1
-auto-format = false
 end-of-line-diagnostics = "hint"
 
 [editor.statusline]
@@ -26,6 +25,7 @@ mode.select = "SELECT"
 
 [editor.lsp]
 display-messages = true
+display-inlay-hints = true
 
 [editor.auto-save.after-delay]
 enable = true
