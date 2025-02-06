@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+      <title>Jane&#x27;s Blog - 电视剧</title>
+      <link>/</link>
+      <description>This is Jane&#x27;s Blog, share about coding and daily.</description>
+      <generator>Zola</generator>
+      <language>en</language>
+      <atom:link href="/tags/dian-shi-ju/rss.xml" rel="self" type="application/rss+xml"/>
+      <lastBuildDate>Mon, 28 Nov 2022 00:00:00 +0000</lastBuildDate>
+      <item>
+          <title>一些有趣的电视剧</title>
+          <pubDate>Mon, 28 Nov 2022 00:00:00 +0000</pubDate>
+          <author>Unknown</author>
+          <link>/blog/tv/</link>
+          <guid>/blog/tv/</guid>
+          <description xml:base="/blog/tv/">&lt;p&gt;记录一些有意思的电视剧&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;bai-tuo-xiao-jie&quot;&gt;拜托小姐&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;tv&#x2F;lady-castle.jpg&quot; alt=&quot;Lady Castle&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+</description>
+      </item>
+    </channel>
+</rss>
