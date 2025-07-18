@@ -6,7 +6,7 @@
 ## Helix配置文件
 
 ```toml
-theme = "gruvbox"
+theme = "gruvbox_dark_soft"
 
 [editor]
 line-number = "relative"
