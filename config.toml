@@ -15,7 +15,7 @@ extra_syntaxes_and_themes = ["highlight_themes"]
 highlight_theme = "css"
 highlight_themes_css = [
     { theme = "Catppuccin Latte", filename = "syntax-theme-light.css" },
-    { theme = "Catppuccin Frappe", filename = "syntax-theme-dark.css" },
+    { theme = "Catppuccin Macchiato", filename = "syntax-theme-dark.css" },
 ]
 
 [extra]
