@@ -23,10 +23,6 @@ mode.normal = "NORMAL"
 mode.insert = "INSERT"
 mode.select = "SELECT"
 
-[editor.lsp]
-display-messages = true
-display-inlay-hints = true
-
 [editor.auto-save.after-delay]
 enable = true
 timeout = 500
