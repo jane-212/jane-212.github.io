@@ -11,11 +11,10 @@ taxonomies = [{ name = "tags", feed = true }]
 
 [markdown]
 highlight_code = true
-extra_syntaxes_and_themes = ["highlight_themes"]
 highlight_theme = "css"
 highlight_themes_css = [
-    { theme = "Catppuccin Latte", filename = "syntax-theme-light.css" },
-    { theme = "Catppuccin Frappe", filename = "syntax-theme-dark.css" },
+  { theme = "nord", filename = "syntax-theme-light.css" },
+  { theme = "nord", filename = "syntax-theme-dark.css" },
 ]
 
 [extra]
@@ -26,8 +25,8 @@ favicon = "favicon.ico"
 twitter_card = true
 
 header_nav = [
-    { url = "/", name_en = "/home/" },
-    { url = "/blog/", name_en = "/blog/" },
-    { url = "/tags/", name_en = "/tags/" },
-    { url = "/about/", name_en = "/about/" },
+  { url = "/", name_en = "/home/" },
+  { url = "/blog/", name_en = "/blog/" },
+  { url = "/tags/", name_en = "/tags/" },
+  { url = "/about/", name_en = "/about/" },
 ]
