@@ -6,7 +6,7 @@
 ## Helix配置文件
 
 ```toml
-theme = "nord"
+theme = "gruvbox"
 
 [editor]
 line-number = "relative"
