@@ -2,28 +2,25 @@ base_url = "/"
 title = "Jane's Blog"
 description = "This is Jane's Blog, share about coding and daily."
 theme = "anemone"
-
 minify_html = true
 generate_feeds = true
 feed_filenames = ["rss.xml", "atom.xml"]
-
 taxonomies = [{ name = "tags", feed = true }]
 
 [markdown]
 highlight_code = true
 highlight_theme = "css"
+extra_syntaxes_and_themes = ["highlight_themes"]
 highlight_themes_css = [
-  { theme = "nord", filename = "syntax-theme-light.css" },
-  { theme = "nord", filename = "syntax-theme-dark.css" },
+  { theme = "Catppuccin Latte", filename = "syntax-theme-light.css" },
+  { theme = "Catppuccin Mocha", filename = "syntax-theme-dark.css" },
 ]
 
 [extra]
 author = "Jane"
 display_author = true
-
 favicon = "favicon.ico"
 twitter_card = true
-
 header_nav = [
   { url = "/", name_en = "/home/" },
   { url = "/blog/", name_en = "/blog/" },
