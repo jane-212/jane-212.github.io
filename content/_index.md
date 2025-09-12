@@ -16,7 +16,7 @@ completion-trigger-len = 1
 end-of-line-diagnostics = "hint"
 
 [editor.statusline]
-left = ["spacer", "version-control"]
+left = ["spacer", "version-control", "spacer", "spinner"]
 center = ["mode"]
 right = ["diagnostics", "position", "file-type"]
 mode.normal = "NORMAL"
