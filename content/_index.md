@@ -53,3 +53,9 @@ Host github.com
     Port 443
     User git
 ```
+
+## 下载ShellCrash
+
+```bash
+export url='https://fastly.jsdelivr.net/gh/juewuy/ShellCrash@master' && sh -c "$(curl -kfsSl $url/install.sh)" && source /etc/profile &> /dev/null
+```
