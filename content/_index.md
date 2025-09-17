@@ -59,3 +59,12 @@ Host github.com
 ```bash
 export url='https://fastly.jsdelivr.net/gh/juewuy/ShellCrash@master' && sh -c "$(curl -kfsSl $url/install.sh)" && source /etc/profile &> /dev/null
 ```
+
+## 常用github actions
+
+```yaml
+# gitleaks
+- uses: gitleaks/gitleaks-action@v2
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
