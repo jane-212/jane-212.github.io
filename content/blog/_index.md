@@ -1,6 +1,6 @@
 +++
 paginate_by = 15
-title = "All blog posts"
+title = "Blog Posts"
 sort_by = "date"
 page_template = "blog-page.html"
 +++

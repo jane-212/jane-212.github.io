@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h1>{{ page.title | title }}</h1>
+<h1>{{ page.title }}</h1>
 
 <time datetime="{{ page.date }}">Published on: <span class="accent-data">{{ page.date }}</span></time>
 {% if config.extra.author and config.extra.display_author == true %}
