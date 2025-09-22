@@ -1,8 +1,10 @@
 _default:
     @just --list
 
-# commit changes and push to main
-push MSG:
+alias s := sync
+
+# commit and push to main
+sync:
     git add .
-    git commit -m "{{MSG}}"
+    git commit -m update
     git push origin main
