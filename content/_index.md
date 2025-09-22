@@ -1,11 +1,11 @@
 +++
 +++
 
-# Jane's Blog
+## Jane's Blog
 
 备份一些常用的文件代码等
 
-## Helix配置文件
+#### Helix配置文件
 
 ```toml
 theme = "catppuccin_mocha"
@@ -33,7 +33,7 @@ timeout = 500
 render = true
 ```
 
-## 常用软件
+#### 常用软件
 
 浏览器: Safari
 
@@ -45,7 +45,7 @@ Docker: [OrbStack](https://orbstack.dev)
 
 编辑器: [Zed](https://zed.dev)
 
-## git无法 `clone` 和 `push` 的问题
+#### git无法 `clone` 和 `push` 的问题
 
 > ~/.ssh/config
 
@@ -56,13 +56,13 @@ Host github.com
     User git
 ```
 
-## 下载ShellCrash
+#### 下载ShellCrash
 
 ```bash
 export url='https://fastly.jsdelivr.net/gh/juewuy/ShellCrash@master' && sh -c "$(curl -kfsSl $url/install.sh)" && source /etc/profile &> /dev/null
 ```
 
-## 常用github actions
+#### 常用github actions
 
 ```yaml
 # gitleaks
