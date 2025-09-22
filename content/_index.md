@@ -17,8 +17,8 @@ end-of-line-diagnostics = "hint"
 
 [editor.statusline]
 left = ["spacer", "version-control", "spacer", "spinner"]
-center = ["mode"]
-right = ["diagnostics", "position", "file-type"]
+center = ["file-name"]
+right = ["mode", "diagnostics", "position", "file-type"]
 mode.normal = "NORMAL"
 mode.insert = "INSERT"
 mode.select = "SELECT"
