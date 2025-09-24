@@ -21,6 +21,6 @@ favicon = "favicon.ico"
 twitter_card = true
 header_nav = [
   { url = "/", name = "/首页/" },
-  { url = "/blog/", name = "/博客/" },
+  { url = "/blog/", name = "/文章/" },
   { url = "/about/", name = "/关于/" },
 ]
