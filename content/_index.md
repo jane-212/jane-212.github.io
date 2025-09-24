@@ -1,5 +1,5 @@
 +++
-title = "Jane's Blog"
+title = "我的博客"
 +++
 
 备份一些常用的文件代码等

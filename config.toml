@@ -22,6 +22,5 @@ twitter_card = true
 header_nav = [
   { url = "/", name = "/首页/" },
   { url = "/blog/", name = "/博客/" },
-  { url = "/tags/", name = "/标签/" },
   { url = "/about/", name = "/关于/" },
 ]
