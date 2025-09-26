@@ -11,15 +11,15 @@ theme = "catppuccin_mocha"
 
 [editor]
 line-number = "relative"
-cursorline = true
 completion-timeout = 5
 completion-trigger-len = 1
 end-of-line-diagnostics = "hint"
+color-modes = true
 
 [editor.statusline]
-left = ["spacer", "version-control", "spacer", "spinner"]
+left = ["mode", "spacer", "version-control", "spacer", "spinner"]
 center = ["file-name"]
-right = ["diagnostics", "mode", "position", "file-type"]
+right = ["diagnostics", "position", "file-type"]
 mode.normal = "NORMAL"
 mode.insert = "INSERT"
 mode.select = "SELECT"
