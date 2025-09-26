@@ -17,9 +17,14 @@ end-of-line-diagnostics = "hint"
 color-modes = true
 
 [editor.statusline]
-left = ["mode", "spacer", "version-control", "spacer", "spinner"]
+left = ["mode"]
 center = ["file-name"]
-right = ["diagnostics", "position", "file-type"]
+right = [
+  "diagnostics",
+  "spacer",
+  "version-control",
+  "spacer",
+]
 mode.normal = "NORMAL"
 mode.insert = "INSERT"
 mode.select = "SELECT"
