@@ -16,7 +16,6 @@ completion-trigger-len = 1
 end-of-line-diagnostics = "hint"
 color-modes = true
 default-yank-register = "+"
-bufferline = "always"
 
 [editor.statusline]
 left = ["mode"]
