@@ -17,6 +17,9 @@ end-of-line-diagnostics = "hint"
 color-modes = true
 default-yank-register = "+"
 
+[editor.lsp]
+display-progress-messages = true
+
 [editor.statusline]
 left = ["mode"]
 center = ["file-name"]
