@@ -21,13 +21,21 @@ default-yank-register = "+"
 display-progress-messages = true
 
 [editor.statusline]
-left = ["mode"]
-center = ["file-name"]
-right = [
-  "diagnostics",
+left = [
+  "mode",
   "spacer",
   "version-control",
   "spacer",
+  "diagnostics",
+]
+center = [
+  "file-name",
+  "file-modification-indicator",
+]
+right = [
+  "position",
+  "position-percentage",
+  "file-type",
 ]
 mode.normal = "NORMAL"
 mode.insert = "INSERT"
