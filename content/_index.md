@@ -49,6 +49,36 @@ timeout = 500
 render = true
 ```
 
+#### Ghostty配置文件
+
+```env
+theme = Catppuccin Mocha
+
+font-family = Maple Mono NF CN
+font-size = 15
+font-thicken = true
+font-thicken-strength = 127
+
+working-directory = /Users/jane/space
+window-inherit-working-directory = false
+
+adjust-cell-height = 3
+
+mouse-hide-while-typing = true
+cursor-style-blink = false
+shell-integration-features = no-cursor
+
+title = "~"
+window-padding-x = 8
+maximize = true
+
+background-opacity = 0.9
+background-blur = true
+
+macos-titlebar-proxy-icon = hidden
+macos-option-as-alt = true
+```
+
 #### Zed配置文件
 
 ```json
