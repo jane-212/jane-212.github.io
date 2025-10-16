@@ -246,7 +246,7 @@ macos-option-as-alt = true
 
 浏览器: Safari
 
-终端: [Wezterm](https://wezfurlong.org/wezterm/index.html)
+终端: [Ghostty](https://ghostty.org)
 
 数据库管理: [DataGrip](https://www.jetbrains.com/zh-cn/datagrip/)
 
