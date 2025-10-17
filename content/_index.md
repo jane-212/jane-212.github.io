@@ -79,6 +79,80 @@ macos-titlebar-proxy-icon = hidden
 macos-option-as-alt = true
 ```
 
+#### starship配置文件
+
+```toml
+"$schema" = 'https://starship.rs/config-schema.json'
+
+add_newline = false
+
+format = """
+$os\
+$directory\
+$username\
+$hostname\
+$git_branch\
+$git_status\
+$golang\
+$lua\
+$python\
+$rust\
+$cmd_duration\
+$character
+"""
+
+[golang]
+symbol = " "
+format = "[$symbol($version )]($style)"
+
+[lua]
+symbol = "󰢱 "
+format = "[$symbol($version )]($style)"
+
+[python]
+symbol = "󰌠 "
+format = "[$symbol($version )]($style)"
+
+[rust]
+symbol = "󱘗 "
+format = "[$symbol($version )]($style)"
+
+[cmd_duration]
+format = "[󱎫 $duration ]($style)"
+style = "green bold"
+
+[character]
+success_symbol = '[#](white bold)'
+error_symbol = '[#](red bold)'
+vimcmd_symbol = "[#](green bold)"
+vimcmd_replace_one_symbol = "[#](green bold)"
+vimcmd_replace_symbol = "[#](green bold)"
+vimcmd_visual_symbol = "[#](green bold)"
+
+[directory]
+format = "[$read_only$path ]($style)"
+read_only = "󰪪 "
+style = "blue bold"
+
+[git_branch]
+format = "[$symbol$branch]($style)"
+symbol = "󰊤 "
+style = "yellow bold"
+
+[git_status]
+format = '[$all_status$ahead_behind ]($style)'
+style = "yellow bold"
+
+[os]
+style = "gray bold"
+disabled = false
+
+[os.symbols]
+Macos = "󰀵 "
+Windows = "󰖳 "
+Linux = "󰌽 "
+```
+
 #### Zed配置文件
 
 ```json
