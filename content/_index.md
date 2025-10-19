@@ -353,3 +353,12 @@ export url='https://fastly.jsdelivr.net/gh/juewuy/ShellCrash@master' && sh -c "$
   env:
     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
+
+#### shell启用vim模式
+
+```shell
+bindkey -v
+export KEYTIMEOUT=1
+bindkey "^H" backward-delete-char
+bindkey "^?" backward-delete-char
+```
