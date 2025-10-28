@@ -37,9 +37,6 @@ right = [
   "position-percentage",
   "file-type",
 ]
-mode.normal = "NORMAL"
-mode.insert = "INSERT"
-mode.select = "SELECT"
 
 [editor.auto-save.after-delay]
 enable = true
