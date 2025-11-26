@@ -16,27 +16,15 @@ completion-trigger-len = 1
 end-of-line-diagnostics = "hint"
 color-modes = true
 default-yank-register = "+"
+auto-info = false
 
 [editor.lsp]
 display-progress-messages = true
 
 [editor.statusline]
-left = [
-  "mode",
-  "spacer",
-  "version-control",
-  "spacer",
-  "diagnostics",
-]
-center = [
-  "file-name",
-  "file-modification-indicator",
-]
-right = [
-  "position",
-  "position-percentage",
-  "file-type",
-]
+left = ["mode", "spacer", "version-control", "spacer", "diagnostics"]
+center = ["file-name", "file-modification-indicator"]
+right = ["position", "position-percentage", "file-type"]
 
 [editor.auto-save.after-delay]
 enable = true
