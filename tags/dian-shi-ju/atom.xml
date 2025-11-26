@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title>Jane&#x27;s Blog - 电视剧</title>
+    <subtitle>This is Jane&#x27;s Blog, share about coding and daily.</subtitle>
+    <link rel="self" type="application/atom+xml" href="/tags/dian-shi-ju/atom.xml"/>
+    <link rel="alternate" type="text/html" href="/"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2022-11-28T00:00:00+00:00</updated>
+    <id>/tags/dian-shi-ju/atom.xml</id>
+    <entry xml:lang="en">
+        <title>一些有趣的电视剧</title>
+        <published>2022-11-28T00:00:00+00:00</published>
+        <updated>2022-11-28T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="/blog/tv/"/>
+        <id>/blog/tv/</id>
+        
+        <content type="html" xml:base="/blog/tv/">&lt;p&gt;记录一些有意思的电视剧&lt;&#x2F;p&gt;
+&lt;h2 id=&quot;bai-tuo-xiao-jie&quot;&gt;拜托小姐&lt;&#x2F;h2&gt;
+&lt;p&gt;&lt;img src=&quot;&#x2F;tv&#x2F;lady-castle.jpg&quot; alt=&quot;Lady Castle&quot; &#x2F;&gt;&lt;&#x2F;p&gt;
+</content>
+        
+    </entry>
+</feed>
