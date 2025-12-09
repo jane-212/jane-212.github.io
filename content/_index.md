@@ -40,7 +40,11 @@ render = true
 theme = Catppuccin Mocha
 
 font-family = Maple Mono NF CN
-font-size = 15
+font-style = SemiBold
+font-style-bold = ExtraBold
+font-style-italic = SemiBold Italic
+font-style-bold-italic = ExtraBold Italic
+font-size = 16
 font-thicken = true
 font-thicken-strength = 127
 
