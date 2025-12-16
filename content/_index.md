@@ -52,7 +52,7 @@ working-directory = /Users/jane/space
 window-inherit-working-directory = false
 window-new-tab-position = end
 
-background-opacity = 0.9
+background-opacity = 0.7
 background-blur = true
 
 adjust-cell-height = 3
