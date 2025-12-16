@@ -39,6 +39,39 @@ timeout = 500
 render = true
 ```
 
+#### Helix theme diff
+
+```diff
+69c69
+< "ui.background" = { fg = "text", bg = "base" }
+---
+> "ui.background" = { fg = "text" }
+74,75c74,75
+< "ui.statusline" = { fg = "subtext1", bg = "mantle" }
+< "ui.statusline.inactive" = { fg = "surface2", bg = "mantle" }
+---
+> "ui.statusline" = { fg = "subtext1" }
+> "ui.statusline.inactive" = { fg = "surface2" }
+80c80
+< "ui.popup" = { fg = "text", bg = "surface0" }
+---
+> "ui.popup" = { fg = "text" }
+82c82
+< "ui.help" = { fg = "overlay2", bg = "surface0" }
+---
+> "ui.help" = { fg = "overlay2" }
+89c89
+< "ui.text.focus" = { fg = "text", bg = "surface0", modifiers = ["bold"] }
+---
+> "ui.text.focus" = { fg = "text", modifiers = ["bold"] }
+117,118c117,118
+< "ui.menu" = { fg = "overlay2", bg = "surface0" }
+< "ui.menu.selected" = { fg = "text", bg = "surface1", modifiers = ["bold"] }
+---
+> "ui.menu" = { fg = "overlay2" }
+> "ui.menu.selected" = { fg = "text", modifiers = ["bold"] }
+```
+
 #### Ghostty配置文件
 
 ```env
