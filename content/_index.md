@@ -21,6 +21,7 @@ end-of-line-diagnostics = "hint"
 color-modes = true
 default-yank-register = "+"
 auto-info = false
+popup-border = "all"
 
 [editor.lsp]
 display-progress-messages = true
