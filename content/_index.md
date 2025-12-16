@@ -4,6 +4,10 @@ title = "首页"
 
 备份一些常用的文件代码等
 
+#### 壁纸
+
+![Wallpaper](/wallpaper.jpg)
+
 #### Helix配置文件
 
 ```toml
