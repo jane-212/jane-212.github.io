@@ -76,7 +76,6 @@ render = true
 
 ```env
 theme = Catppuccin Mocha
-
 font-family = Maple Mono NF CN
 font-style = Bold
 font-style-bold = SemiBold
@@ -85,25 +84,20 @@ font-style-bold-italic = SemiBold Italic
 font-size = 16
 font-thicken = true
 font-thicken-strength = 127
-
 working-directory = /Users/jane/space
 window-inherit-working-directory = false
-window-new-tab-position = end
-
 background-opacity = 0.8
-
 adjust-cell-height = 3
-
 mouse-hide-while-typing = true
 cursor-style-blink = false
 shell-integration-features = no-cursor
-
-window-padding-x = 8
+window-padding-x = 5
 maximize = true
-
-macos-titlebar-proxy-icon = hidden
 macos-option-as-alt = true
-macos-titlebar-style = tabs
+macos-titlebar-style = hidden
+keybind = clear
+keybind = performable:super+c=copy_to_clipboard
+keybind = performable:super+v=paste_from_clipboard
 ```
 
 #### starship配置文件
