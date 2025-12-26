@@ -100,6 +100,39 @@ keybind = performable:super+c=copy_to_clipboard
 keybind = performable:super+v=paste_from_clipboard
 ```
 
+#### Zellij配置文件
+
+```env
+theme "catppuccin-mocha"
+default_layout "compact"
+pane_frames false
+show_startup_tips false
+show_release_notes false
+
+keybinds clear-defaults=true {
+    normal {
+        bind "Super t" { NewTab; }
+        bind "Super w" { CloseTab; }
+        bind "Super r" { SwitchToMode "RenameTab"; TabNameInput 0; }
+        bind "Super p" { GoToPreviousTab; }
+        bind "Super n" { GoToNextTab; }
+        bind "Super 0" { GoToTab 0; }
+        bind "Super 1" { GoToTab 1; }
+        bind "Super 2" { GoToTab 2; }
+        bind "Super 3" { GoToTab 3; }
+        bind "Super 4" { GoToTab 4; }
+        bind "Super 5" { GoToTab 5; }
+        bind "Super 6" { GoToTab 6; }
+        bind "Super 7" { GoToTab 7; }
+        bind "Super 8" { GoToTab 8; }
+        bind "Super 9" { GoToTab 9; }
+    }
+    renametab {
+        bind "Enter" { SwitchToMode "Normal"; }
+    }
+}
+```
+
 #### starship配置文件
 
 ```toml
