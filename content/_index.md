@@ -76,7 +76,7 @@ render = true
 
 ```env
 theme = Catppuccin Mocha
-font-family = Maple Mono NF CN
+font-family = MonaspiceRn Nerd Font Mono
 font-style = Bold
 font-style-bold = SemiBold
 font-style-italic = Bold Italic
@@ -96,7 +96,6 @@ maximize = true
 macos-option-as-alt = true
 macos-titlebar-style = hidden
 keybind = clear
-keybind = performable:super+c=copy_to_clipboard
 keybind = performable:super+v=paste_from_clipboard
 ```
 
@@ -111,11 +110,12 @@ show_release_notes false
 
 keybinds clear-defaults=true {
     normal {
-        bind "Super t" { NewTab; }
-        bind "Super w" { CloseTab; }
+        bind "Super t" {
+            NewTab {
+                cwd "~/space"
+            }
+        }
         bind "Super r" { SwitchToMode "RenameTab"; TabNameInput 0; }
-        bind "Super p" { GoToPreviousTab; }
-        bind "Super n" { GoToNextTab; }
         bind "Super 0" { GoToTab 0; }
         bind "Super 1" { GoToTab 1; }
         bind "Super 2" { GoToTab 2; }
