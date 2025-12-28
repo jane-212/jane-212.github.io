@@ -77,7 +77,7 @@ render = true
 ```env
 theme = Catppuccin Mocha
 font-family = MonaspiceRn Nerd Font Mono
-font-family = Maple Mono CN
+font-family = 圆体-简
 font-style = Bold
 font-style-bold = SemiBold
 font-style-italic = Bold Italic
