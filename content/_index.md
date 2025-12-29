@@ -141,8 +141,6 @@ add_newline = false
 
 format = """
 $directory\
-$username\
-$hostname\
 $git_branch\
 $git_status\
 $cmd_duration\
