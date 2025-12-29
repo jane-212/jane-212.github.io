@@ -137,43 +137,20 @@ keybinds clear-defaults=true {
 #### starship配置文件
 
 ```toml
-"$schema" = 'https://starship.rs/config-schema.json'
-
 add_newline = false
 
 format = """
-$os\
 $directory\
 $username\
 $hostname\
 $git_branch\
 $git_status\
-$golang\
-$lua\
-$python\
-$rust\
 $cmd_duration\
 $character
 """
 
-[golang]
-symbol = " "
-format = "[$symbol($version )]($style)"
-
-[lua]
-symbol = "󰢱 "
-format = "[$symbol($version )]($style)"
-
-[python]
-symbol = "󰌠 "
-format = "[$symbol($version )]($style)"
-
-[rust]
-symbol = "󱘗 "
-format = "[$symbol($version )]($style)"
-
 [cmd_duration]
-format = "[󱎫 $duration ]($style)"
+format = "[$duration ]($style)"
 style = "green bold"
 
 [character]
@@ -186,26 +163,17 @@ vimcmd_visual_symbol = "[#](green bold)"
 
 [directory]
 format = "[$read_only$path ]($style)"
-read_only = "󰪪 "
+read_only = ""
 style = "blue bold"
 
 [git_branch]
 format = "[$symbol$branch]($style)"
-symbol = "󰊤 "
+symbol = ""
 style = "yellow bold"
 
 [git_status]
 format = '[$all_status$ahead_behind ]($style)'
 style = "yellow bold"
-
-[os]
-style = "gray bold"
-disabled = false
-
-[os.symbols]
-Macos = "󰀵 "
-Windows = "󰖳 "
-Linux = "󰌽 "
 ```
 
 #### Zed配置文件
