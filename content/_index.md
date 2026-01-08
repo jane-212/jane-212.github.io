@@ -76,7 +76,7 @@ render = true
 
 ```env
 theme = Catppuccin Mocha
-font-family = Menlo
+font-family = Monaspace Neon
 font-family = 圆体-简
 font-style = Bold
 font-style-bold = SemiBold
@@ -88,7 +88,7 @@ font-thicken-strength = 127
 working-directory = /Users/jane/space
 window-inherit-working-directory = false
 background-opacity = 0.8
-adjust-cell-height = 3
+adjust-cell-height = 2
 mouse-hide-while-typing = true
 cursor-style-blink = false
 shell-integration-features = no-cursor
