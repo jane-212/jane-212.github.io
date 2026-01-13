@@ -145,29 +145,29 @@ $character
 
 [cmd_duration]
 format = "[$duration ]($style)"
-style = "green bold"
+style = "green"
 
 [character]
-success_symbol = '[#](white bold)'
-error_symbol = '[#](red bold)'
-vimcmd_symbol = "[#](green bold)"
-vimcmd_replace_one_symbol = "[#](green bold)"
-vimcmd_replace_symbol = "[#](green bold)"
-vimcmd_visual_symbol = "[#](green bold)"
+success_symbol = '[\$](white)'
+error_symbol = '[\$](red)'
+vimcmd_symbol = '[\$](green)'
+vimcmd_replace_one_symbol = '[\$](green)'
+vimcmd_replace_symbol = '[\$](green)'
+vimcmd_visual_symbol = '[\$](green)'
 
 [directory]
 format = "[$read_only$path ]($style)"
 read_only = ""
-style = "blue bold"
+style = "blue"
 
 [git_branch]
 format = "[$symbol$branch]($style)"
 symbol = ""
-style = "yellow bold"
+style = "yellow"
 
 [git_status]
 format = '[$all_status$ahead_behind ]($style)'
-style = "yellow bold"
+style = "yellow"
 ```
 
 #### Zed配置文件
