@@ -7,5 +7,5 @@ help:
 
 sync:
 	git add .
-	git commit -m "update"
+	lumen draft | git commit -F -
 	git push origin main
