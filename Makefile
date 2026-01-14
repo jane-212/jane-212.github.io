@@ -7,5 +7,5 @@ help:
 
 sync:
 	git add .
-	lumen draft | git commit -F -
+	lumen draft --context "use chinese" | git commit -F -
 	git push origin main
