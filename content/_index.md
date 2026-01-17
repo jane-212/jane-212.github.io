@@ -76,7 +76,7 @@ render = true
 
 ```env
 theme = Catppuccin Mocha
-font-family = Monaspace Xenon
+font-family = Monaspace Neon
 font-family = 圆体-简
 font-size = 16
 font-thicken = true
