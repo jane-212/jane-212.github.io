@@ -135,7 +135,6 @@ keybinds clear-defaults=true {
 
 ```toml
 add_newline = false
-
 format = """
 $directory\
 $git_branch\
@@ -167,7 +166,7 @@ symbol = ""
 style = "yellow"
 
 [git_status]
-format = '[$all_status$ahead_behind ]($style)'
+format = "[$all_status$ahead_behind ]($style)"
 style = "yellow"
 ```
 
